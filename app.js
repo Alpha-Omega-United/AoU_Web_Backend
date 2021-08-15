@@ -19,18 +19,22 @@ const httpPort = 9999;
 
 app.use(cors());
 
-const allowedOrigins = ['https://alpha-omega-united.github.io/']
-const corsOptions = {
-	origin: function (origin, callback) {
-		if (allowedOrigins.indexOf(origin) !== -1) {
-			callback(null, true)
-		} else {
-			callback(new Error('Not allowed by CORS'))
-		}
-	}
-}
+//! for specific origins
+// const allowedOrigins = ['https://alpha-omega-united.github.io/', AOU_HEROKU_ENDPOINT]
+// const corsOptions = {
+// 	origin: function (origin, callback) {
+// 		if (allowedOrigins.indexOf(origin) !== -1) {
+// 			callback(null, true)
+// 		} else {
+// 			callback(new Error('Not allowed by CORS'))
+// 		}
+// 	}
+// }
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+//! for specific origins
+
+app.use(cors());
 
 
 //! ------------------------------------ BACKEND ------------------------------------ //
