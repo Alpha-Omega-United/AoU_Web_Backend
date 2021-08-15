@@ -60,7 +60,7 @@ async function validate_tokens(params) {
 		})
 		.catch((err) => console.log(err))
 	console.log(`user is mod: ${confirmUser(response.login)}, token expires: ${response.expires_in}`)
-	return { "validation_status": { "success": confirmUser(response.login) } }
+	return { "validation_status": [JSON.stringify({ "success": confirmUser(response.login) })] }
 };
 
 
