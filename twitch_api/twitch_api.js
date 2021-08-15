@@ -60,8 +60,9 @@ async function validate_tokens(params) {
 			return data
 		})
 		.catch((err) => console.log(err))
-	console.log(`user is mod: ${confirmUser(response.login)}, token expires: ${response.expires_in}`)
-	return JSON.stringify({ "validation_status": { "success": confirmUser(response.login) } })
+	let userResponse = await confirmUser(response.login)
+	console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
+	return JSON.stringify({ "validation_status": { "success": userResponse } })
 };
 
 
@@ -70,7 +71,7 @@ async function confirmUser(userName) {
 	//TODO setup ngrok to localhost "database"
 
 	const query = { twitch_name: userName };
-	const result = await MONGO_DB.queryDb(query)
+	let result = await MONGO_DB.queryDb(query)
 		.catch((err) => console.log(err))
 	console.log(result)
 	return (MODERATORS.includes(userName) ? true : false)
