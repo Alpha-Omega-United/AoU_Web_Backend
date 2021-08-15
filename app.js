@@ -10,11 +10,14 @@ const twitch_api = require("./twitch_api/twitch_api")
 
 const fs = require("fs");
 const app = require("express")();
+const cors = require("cors");
 
 const httpServer = require("http").Server(app);
 const io = require("socket.io")(httpServer);
 
 const httpPort = 9999;
+
+app.use(cors());
 
 //! ------------------------------------ BACKEND ------------------------------------ //
 // //* ------- INDEX --------//
