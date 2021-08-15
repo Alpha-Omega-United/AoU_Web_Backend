@@ -31,7 +31,8 @@ const MODERATORS = [
 	"ziddi_",
 	"calviz_gaming",
 	"deliriouszendera",
-	"notariustv"
+	"notariustv",
+	"vivax3794"
 ]
 
 
@@ -45,18 +46,8 @@ function call_twitch(params) {
 
 
 async function validate_tokens(params) {
-	console.log("------------------------")
-	console.log("params.query")
-	console.log(params.query)
-	console.log("------------------------")
-
 	const userToken = params.query["userToken"]
 	const userName = params.query["userName"]
-	console.log("------------------------")
-	console.log(userToken)
-	console.log(userName)
-	console.log("------------------------")
-
 	endpoint = "https://id.twitch.tv/oauth2/validate"
 	response = await fetch(endpoint, {
 		"headers": {
@@ -65,24 +56,18 @@ async function validate_tokens(params) {
 	})
 		.then((response) => response.json())
 		.then((data) => {
-			console.log(data)
 			return data
 		})
 		.catch((err) => console.log(err))
-
-	console.log("------------------------")
-	console.log("response")
-	console.log(response)
-	console.log("------------------------")
 	console.log(`user is mod: ${confirmUser(response.login)}, token expires: ${response.expires_in}`)
-	return { "validation_status": { "success": true } }
+	return { "validation_status": { "success": confirmUser(response.login) } }
 };
 
 
 
 function confirmUser(userName) {
 	//TODO setup ngrok to localhost "database"
-	if (MODERATORS.includes(userName)) return true
+	return (MODERATORS.includes(userName) ? true : false)
 }
 
 
