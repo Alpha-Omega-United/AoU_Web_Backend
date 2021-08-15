@@ -36,5 +36,5 @@ app.get("/", (req, res) => {
 
 httpServer.listen(process.env.PORT || httpPort, () => {
     time = Date.now();
-    console.log(`${time} - HTTP - server running at ${ip}:${httpPort}/`);
+    console.log(`${time} - HTTP - server running at ${httpPort}/`);
 });
