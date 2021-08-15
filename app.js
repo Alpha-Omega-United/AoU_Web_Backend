@@ -19,6 +19,12 @@ const httpPort = 9999;
 //! ------------------------------------ BACKEND ------------------------------------ //
 // //* ------- INDEX --------//
 app.get("/", (req, res) => {
+    res.status(200).json({ status: "Success!!!!" });
+    // res.sendFile(__dirname + "/breakout/index.html");
+});
+
+
+app.get("/twitch_test", (req, res) => {
 	console.log(twitch_api.twitch_api(req))
     res.status(200).json({ status: "Success!!!!" });
     // res.sendFile(__dirname + "/breakout/index.html");

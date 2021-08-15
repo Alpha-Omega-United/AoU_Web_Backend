@@ -12,7 +12,14 @@ const AOU_HEROKU_ENDPOINT = process.env.AOU_HEROKU_ENDPOINT
 const AOU_EMAIL = process.env.AOU_EMAIL
 const HEROKU_PW = process.env.HEROKU_PW
 
-
+const MODERATORS = [
+	"itsoik",
+	"theserbian_",
+	"ziddi_",
+	"calviz_gaming",
+	"deliriouszendera",
+	"notariustv"
+],
 
 module.exports = {
 	twitch_api: function (params) {
@@ -43,6 +50,28 @@ async function validate_token(params){
 			"Authorization": "Bearer " + userToken
 		}
 	})
+	console.log("------------------------")
+	console.log("response")
 	console.log(response)
+	console.log("------------------------")
+	console.log("response.json("))
+	console.log(response.json())
+	console.log("------------------------")
+	example_response = {
+		"client_id": "wbmytr93xzw8zbg0p1izqyzzc5mbiz",
+		"login": "twitchdev",
+		"scopes": [
+			"channel:read:subscriptions"
+		],
+		"user_id": "141981764",
+		"expires_in": 5520838
+	}
+	console.log(`user is mod: ${confirmUser(response.login)}, token expires: ${response.expires_in}`)
+}
 
+
+
+function confirmUser(userName){
+	//TODO setup ngrok to localhost "database"
+	if (MODERATORS.includes(userName)) return true
 }
