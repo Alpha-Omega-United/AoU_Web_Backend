@@ -46,11 +46,16 @@ function validate_tokens(params){
 	const userName = params.query["userName"]
 	endpoint="https://id.twitch.tv/oauth2/validate"
 	response = (async () => {
-		await fetch(endpoint,{
+		return await fetch(endpoint,{
 			"headers": {
 				"Authorization": "Bearer " + userToken
 			}
-		}).then((response) => response.json())
+		})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data)
+			return data
+		});
 	})
 	console.log("------------------------")
 	console.log("response")
