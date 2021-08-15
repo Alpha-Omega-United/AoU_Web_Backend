@@ -65,8 +65,10 @@ async function validate_tokens(params){
 		})
 		.then((response) => response.json())
 		.then((data) => {
+			console.log(data)
 			return data
-		});
+		})
+		.catch((err) => console.log(err))
 
 	console.log("------------------------")
 	console.log("response")
@@ -80,4 +82,22 @@ async function validate_tokens(params){
 function confirmUser(userName){
 	//TODO setup ngrok to localhost "database"
 	if (MODERATORS.includes(userName)) return true
+}
+
+
+
+
+
+
+
+
+
+a = {
+	"client_id": "wbmytr93xzw8zbg0p1izqyzzc5mbiz",
+	"login": "twitchdev",
+	"scopes": [
+		"channel:read:subscriptions"
+	],
+	"user_id": "141981764",
+	"expires_in": 5520838
 }
