@@ -1,0 +1,19 @@
+{
+	"name": "aou_web_backend",
+	"version": "1.0.0",
+	"description": "aou web backend",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Alpha-Omega-United/AoU_Web_Backend.git"
+	},
+	"author": "ItsOiK",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Alpha-Omega-United/AoU_Web_Backend/issues"
+	},
+	"homepage": "https://github.com/Alpha-Omega-United/AoU_Web_Backend#readme"
+}
