@@ -7,7 +7,7 @@ module.exports = {
 	twitch_api: function (params) {
 		return call_twitch(params)
 	},
-	validate_token: async function (params){
+	validate_token: function (params){
 		return await validate_token(params)
 	}
 };
@@ -45,12 +45,12 @@ async function validate_token(params){
 	const userToken = params.query["userToken"]
 	const userName = params.query["userName"]
 	endpoint="https://id.twitch.tv/oauth2/validate"
-	response = await fetch(endpoint,{
+	response = (async () => fetch(endpoint,{
 		"headers": {
 			"Client-ID": AOU_WEB_CLIENT_ID,
 			"Authorization": "Bearer " + userToken
 		}
-	})
+	}))
 	console.log("------------------------")
 	console.log("response")
 	console.log(response)
