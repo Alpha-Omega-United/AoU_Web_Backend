@@ -4,6 +4,6 @@
 
 
 
-function test_api(){
+export function test_api(){
 	return {"it_works": true}
 }
