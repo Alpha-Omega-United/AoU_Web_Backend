@@ -14,6 +14,7 @@ module.exports = {
 
 
 require('dotenv').config();
+const fetch = require('node-fetch');
 
 const AOU_WEB_CLIENT_ID = process.env.AOU_WEB_CLIENT_ID
 const AOU_WEB_SECRET = process.env.AOU_WEB_SECRET
@@ -41,12 +42,11 @@ function call_twitch(params){
 
 
 
-function validate_tokens(params){
+async function validate_tokens(params){
 	const userToken = params.query["userToken"]
 	const userName = params.query["userName"]
 	endpoint="https://id.twitch.tv/oauth2/validate"
-	response = (async () => {
-		return await fetch(endpoint,{
+	response = await fetch(endpoint,{
 			"headers": {
 				"Authorization": "Bearer " + userToken
 			}
@@ -56,7 +56,7 @@ function validate_tokens(params){
 			console.log(data)
 			return data
 		});
-	})
+
 	console.log("------------------------")
 	console.log("response")
 	console.log(response)
