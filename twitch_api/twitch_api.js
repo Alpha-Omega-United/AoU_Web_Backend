@@ -43,6 +43,11 @@ function call_twitch(params){
 
 
 async function validate_tokens(params){
+	console.log("------------------------")
+	console.log("params.query")
+	console.log(params.query)
+	console.log("------------------------")
+
 	const userToken = params.query["userToken"]
 	const userName = params.query["userName"]
 	endpoint="https://id.twitch.tv/oauth2/validate"
@@ -53,7 +58,6 @@ async function validate_tokens(params){
 		})
 		.then((response) => response.json())
 		.then((data) => {
-			console.log(data)
 			return data
 		});
 
