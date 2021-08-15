@@ -25,6 +25,9 @@ const AOU_HEROKU_ENDPOINT = process.env.AOU_HEROKU_ENDPOINT
 const AOU_EMAIL = process.env.AOU_EMAIL
 const HEROKU_PW = process.env.HEROKU_PW
 
+const MONGO_DB = require("/home/oik/AoU_web_Backend/mongoDb/mongoDb.js")
+
+
 const MODERATORS = [
 	"itsoik",
 	"theserbian_",
@@ -66,6 +69,12 @@ async function validate_tokens(params) {
 
 function confirmUser(userName) {
 	//TODO setup ngrok to localhost "database"
+
+	const query = { twitch_name: userName };
+	MONGO_DB.queryDb(query)
+
+
+
 	return (MODERATORS.includes(userName) ? true : false)
 }
 
