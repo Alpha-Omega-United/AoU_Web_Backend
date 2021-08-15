@@ -2,6 +2,7 @@
 // Author: ItsOiK
 // Date: 15/08-2021
 
+AOU_HEROKU_ENDPOINT="https://aou-website-backend.herokuapp.com/"
 
 const twitch_api = require("./twitch_api/twitch_api")
 
@@ -16,6 +17,7 @@ const httpPort = 3000;
 //! ------------------------------------ BACKEND ------------------------------------ //
 // //* ------- INDEX --------//
 app.get("/", (req, res) => {
+	console.log(twitch_api.test_api())
     res.status(200).json({ status: "Success!!!!" });
     // res.sendFile(__dirname + "/breakout/index.html");
 });
