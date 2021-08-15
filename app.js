@@ -19,6 +19,20 @@ const httpPort = 9999;
 
 app.use(cors());
 
+const allowedOrigins = ['https://alpha-omega-united.github.io/']
+const corsOptions = {
+	origin: function (origin, callback) {
+		if (allowedOrigins.indexOf(origin) !== -1) {
+			callback(null, true)
+		} else {
+			callback(new Error('Not allowed by CORS'))
+		}
+	}
+}
+
+app.use(cors(corsOptions));
+
+
 //! ------------------------------------ BACKEND ------------------------------------ //
 // //* ------- INDEX --------//
 app.get("/", (req, res) => {
