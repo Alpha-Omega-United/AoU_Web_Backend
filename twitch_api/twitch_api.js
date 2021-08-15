@@ -4,6 +4,8 @@
 
 
 
-export function test_api(){
-	return {"it_works": true}
-}
+module.exports = {
+	test_api: function () {
+		return {"it_works": true}
+	},
+};

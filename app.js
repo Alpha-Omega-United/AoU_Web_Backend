@@ -4,9 +4,9 @@
 
 AOU_HEROKU_ENDPOINT="https://aou-website-backend.herokuapp.com/"
 
-// const twitch_api = require("./twitch_api/twitch_api")
+const twitch_api = require("./twitch_api/twitch_api")
 
-import { test_api } from "./twitch_api/twitch_api.js"
+
 
 const fs = require("fs");
 const app = require("express")();
