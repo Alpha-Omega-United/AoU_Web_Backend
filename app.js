@@ -45,9 +45,10 @@ app.get("/", (req, res) => {
 
 
 app.get("/twitch_auth", (req, res) => {
+    console.log(req.query)
     result = twitch_api.validate_token(req)
     console.log(result)
-    res.status(200).json({ status: "Success!!!!", "data": result });
+    res.status(200).json({ status: "Success!!!!", "data": [result] });
     // res.sendFile(__dirname + "/breakout/index.html");
 });
 
