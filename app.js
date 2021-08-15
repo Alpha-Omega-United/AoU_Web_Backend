@@ -3,6 +3,8 @@
 // Date: 15/08-2021
 
 
+const twitch_api = require("./twitch_api/twitch_api")
+
 const fs = require("fs");
 const app = require("express")();
 
@@ -17,6 +19,15 @@ app.get("/", (req, res) => {
     res.status(200).json({ status: "Success!!!!" });
     // res.sendFile(__dirname + "/breakout/index.html");
 });
+
+
+
+
+
+
+
+
+
 
 // //* ------- COMMANDS --------//
 // app.post("/changeImg", (params, res) => {
