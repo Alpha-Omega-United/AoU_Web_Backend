@@ -39,7 +39,6 @@ const MODERATORS = [
 function call_twitch(params) {
 	userName = params.query["userName"]
 	userToken = params.query["userToken"]
-	console.log(params.query)
 	return { "it_works": true }
 }
 
@@ -60,7 +59,7 @@ async function validate_tokens(params) {
 		})
 		.catch((err) => console.log(err))
 	console.log(`user is mod: ${confirmUser(response.login)}, token expires: ${response.expires_in}`)
-	return { "validation_status": [JSON.stringify({ "success": confirmUser(response.login) })] }
+	return JSON.stringify({ "validation_status": { "success": confirmUser(response.login) } })
 };
 
 
