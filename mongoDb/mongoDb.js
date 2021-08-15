@@ -9,12 +9,12 @@ const { MongoClient } = require("mongodb");
 require('dotenv').config();
 
 
-//! const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
-const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_TEST
+const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
+const MONGO_DB_TEST_URL = process.env.MONGO_DB_TEST
 
 
 
-const client = new MongoClient(MONGO_DB_CONNECTION_URL);
+const client = new MongoClient(MONGO_DB_TEST_URL);
 async function queryDb(query) {
 	let result
 	try {

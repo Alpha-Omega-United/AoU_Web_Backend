@@ -66,11 +66,12 @@ async function validate_tokens(params) {
 
 
 
-function confirmUser(userName) {
+async function confirmUser(userName) {
 	//TODO setup ngrok to localhost "database"
 
 	const query = { twitch_name: userName };
-	const result = MONGO_DB.queryDb(query)
+	const result = await MONGO_DB.queryDb(query)
+		.catch((err) => console.log(err))
 	console.log(result)
 	return (MODERATORS.includes(userName) ? true : false)
 }
