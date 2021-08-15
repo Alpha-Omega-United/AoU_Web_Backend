@@ -50,7 +50,7 @@ async function validate_tokens(params) {
 	const userToken = params.query["userToken"]
 	const userName = params.query["userName"]
 	endpoint = "https://id.twitch.tv/oauth2/validate"
-	response = await fetch(endpoint, {
+	let response = await fetch(endpoint, {
 		"headers": {
 			"Authorization": "OAuth " + userToken
 		}
@@ -70,7 +70,7 @@ async function validate_tokens(params) {
 async function confirmUser(userName) {
 	//TODO setup ngrok to localhost "database"
 
-	const query = { twitch_name: userName };
+	let query = { twitch_name: userName };
 	let result = await MONGO_DB.queryDb(query)
 		.catch((err) => console.log(err))
 	console.log(result)
