@@ -1,82 +1,107 @@
-// app.js - nodejs express API AoU Web Backend
-// Author: ItsOiK
-// Date: 15/08-2021
+/*
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
+	http://aws.amazon.com/apache2.0/
+or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+*/
 
-AOU_HEROKU_ENDPOINT="https://aou-website-backend.herokuapp.com/"
+// Define our dependencies
+var express = require('express');
+var session = require('express-session');
+var passport = require('passport');
+var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
+var request = require('request');
+var handlebars = require('handlebars');
 
-const twitch_api = require("./twitch_api/twitch_api")
+// Define our constants, you will change these with your own
+const TWITCH_CLIENT_ID = '<YOUR CLIENT ID HERE>';
+const TWITCH_SECRET = '<YOUR CLIENT SECRET HERE>';
+const SESSION_SECRET = '<SOME SECRET HERE>';
+const CALLBACK_URL = '<YOUR REDIRECT URL HERE>';  // You can run locally with - http://localhost:3000/auth/twitch/callback
 
+// Initialize Express and middlewares
+var app = express();
+app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(express.static('public'));
+app.use(passport.initialize());
+app.use(passport.session());
 
+// Override passport profile function to get user profile from Twitch API
+OAuth2Strategy.prototype.userProfile = function (accessToken, done) {
+	var options = {
+		url: 'https://api.twitch.tv/helix/users',
+		method: 'GET',
+		headers: {
+			'Client-ID': TWITCH_CLIENT_ID,
+			'Accept': 'application/vnd.twitchtv.v5+json',
+			'Authorization': 'Bearer ' + accessToken
+		}
+	};
 
-const fs = require("fs");
-const app = require("express")();
-const cors = require("cors");
+	request(options, function (error, response, body) {
+		if (response && response.statusCode == 200) {
+			done(null, JSON.parse(body));
+		} else {
+			done(JSON.parse(body));
+		}
+	});
+}
 
-const httpServer = require("http").Server(app);
-const io = require("socket.io")(httpServer);
-
-const httpPort = 9999;
-
-app.use(cors());
-
-//! for specific origins
-// const allowedOrigins = ['https://alpha-omega-united.github.io/', AOU_HEROKU_ENDPOINT]
-// const corsOptions = {
-// 	origin: function (origin, callback) {
-// 		if (allowedOrigins.indexOf(origin) !== -1) {
-// 			callback(null, true)
-// 		} else {
-// 			callback(new Error('Not allowed by CORS'))
-// 		}
-// 	}
-// }
-
-// app.use(cors(corsOptions));
-//! for specific origins
-
-app.use(cors());
-
-
-//! ------------------------------------ BACKEND ------------------------------------ //
-// //* ------- INDEX --------//
-app.get("/", (req, res) => {
-    res.status(200).json({ status: "Success!!!!" });
-    // res.sendFile(__dirname + "/breakout/index.html");
+passport.serializeUser(function (user, done) {
+	done(null, user);
 });
 
-
-app.get("/twitch_test", (req, res) => {
-	console.log(twitch_api.validate_token(req))
-    res.status(200).json({ status: "Success!!!!" });
-    // res.sendFile(__dirname + "/breakout/index.html");
+passport.deserializeUser(function (user, done) {
+	done(null, user);
 });
 
+passport.use('twitch', new OAuth2Strategy({
+	authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
+	tokenURL: 'https://id.twitch.tv/oauth2/token',
+	clientID: TWITCH_CLIENT_ID,
+	clientSecret: TWITCH_SECRET,
+	callbackURL: CALLBACK_URL,
+	state: true
+},
+	function (accessToken, refreshToken, profile, done) {
+		profile.accessToken = accessToken;
+		profile.refreshToken = refreshToken;
 
+		// Securely store user profile in your DB
+		//User.findOrCreate(..., function(err, user) {
+		//  done(err, user);
+		//});
 
+		done(null, profile);
+	}
+));
 
+// Set route to start OAuth link, this is where you define scopes to request
+app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read' }));
 
+// Set route for OAuth redirect
+app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/' }));
 
+// Define a simple template to safely generate HTML with values from user's profile
+var template = handlebars.compile(`
+<html><head><title>Twitch Auth Sample</title></head>
+<table>
+    <tr><th>Access Token</th><td>{{accessToken}}</td></tr>
+    <tr><th>Refresh Token</th><td>{{refreshToken}}</td></tr>
+    <tr><th>Display Name</th><td>{{display_name}}</td></tr>
+    <tr><th>Bio</th><td>{{bio}}</td></tr>
+    <tr><th>Image</th><td>{{logo}}</td></tr>
+</table></html>`);
 
+// If user has an authenticated session, display it, otherwise display link to authenticate
+app.get('/', function (req, res) {
+	if (req.session && req.session.passport && req.session.passport.user) {
+		res.send(template(req.session.passport.user));
+	} else {
+		res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
+	}
+});
 
-
-
-// //* ------- COMMANDS --------//
-// app.post("/changeImg", (params, res) => {
-//     let url = params.query["img_url"];
-//     let userName = params.query["user_name"];
-//     io.emit("changeImg", url);
-//     io.emit("changeName", userName);
-//     res.status(200).json({ status: "Success!!!!" });
-// });
-// //* ------- ASSETS --------//
-// app.get("/breakout/oik_logo.png", (reg, res) => {
-//     res.sendFile(__dirname + "/breakout/oik_logo.png");
-//     console.log(__dirname + "/breakout/oik_logo.png");
-// });
-
-//! ------------------------------------ LISTEN ------------------------------------ //
-
-httpServer.listen(process.env.PORT || httpPort, () => {
-    time = Date.now();
-    console.log(`${time} - HTTP - server running at ${httpPort}/`);
+app.listen(3000, function () {
+	console.log('Twitch auth sample listening on port 3000!')
 });
