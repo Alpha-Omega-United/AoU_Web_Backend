@@ -8,14 +8,13 @@ module.exports = {
 		return call_twitch(params)
 	},
 	validate_token: function (params) {
-		console.log(params)
-		console.log(params.query)
 		return validate_tokens(params)
 	}
 };
 
 
 require('dotenv').config();
+const { response } = require('express');
 const fetch = require('node-fetch');
 
 const AOU_WEB_CLIENT_ID = process.env.AOU_WEB_CLIENT_ID
@@ -25,7 +24,7 @@ const AOU_HEROKU_ENDPOINT = process.env.AOU_HEROKU_ENDPOINT
 const AOU_EMAIL = process.env.AOU_EMAIL
 const HEROKU_PW = process.env.HEROKU_PW
 
-const MONGO_DB = require("/home/oik/AoU_web_Backend/mongoDb/mongoDb.js")
+const MONGO_DB = require("../mongoDb/mongoDb")
 
 
 const MODERATORS = [
@@ -71,10 +70,8 @@ function confirmUser(userName) {
 	//TODO setup ngrok to localhost "database"
 
 	const query = { twitch_name: userName };
-	MONGO_DB.queryDb(query)
-
-
-
+	const result = MONGO_DB.queryDb(query)
+	console.log(result)
 	return (MODERATORS.includes(userName) ? true : false)
 }
 
