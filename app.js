@@ -11,7 +11,7 @@ var session = require('express-session');
 var passport = require('passport');
 var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 var request = require('request');
-var handlebars = require('handlebars');
+var handlebars = require('np');
 
 // Define our constants, you will change these with your own
 const TWITCH_CLIENT_ID = '<YOUR CLIENT ID HERE>';
