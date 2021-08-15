@@ -8,7 +8,7 @@ module.exports = {
 		return call_twitch(params)
 	},
 	validate_token: function (params){
-		return await validate_token(params)
+		return validate_token(params)
 	}
 };
 
@@ -41,34 +41,26 @@ function call_twitch(params){
 
 
 
-async function validate_token(params){
+function validate_token(params){
 	const userToken = params.query["userToken"]
 	const userName = params.query["userName"]
 	endpoint="https://id.twitch.tv/oauth2/validate"
-	response = (async () => fetch(endpoint,{
-		"headers": {
-			"Client-ID": AOU_WEB_CLIENT_ID,
-			"Authorization": "Bearer " + userToken
-		}
-	}))
+	response = (async () => {
+		await fetch(endpoint,{
+			"headers": {
+				"Authorization": "Bearer " + userToken
+			}
+		})
+	})
 	console.log("------------------------")
 	console.log("response")
 	console.log(response)
 	console.log("------------------------")
-	console.log("response.json("))
+	console.log("response.json()")
 	console.log(response.json())
 	console.log("------------------------")
-	example_response = {
-		"client_id": "wbmytr93xzw8zbg0p1izqyzzc5mbiz",
-		"login": "twitchdev",
-		"scopes": [
-			"channel:read:subscriptions"
-		],
-		"user_id": "141981764",
-		"expires_in": 5520838
-	}
 	console.log(`user is mod: ${confirmUser(response.login)}, token expires: ${response.expires_in}`)
-}
+};
 
 
 
