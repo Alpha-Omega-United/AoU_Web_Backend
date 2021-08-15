@@ -3,6 +3,16 @@
 // Date: 15/08-2021
 
 
+module.exports = {
+	twitch_api: function (params) {
+		return call_twitch(params)
+	},
+	validate_token: async function (params){
+		return await validate_token(params)
+	}
+};
+
+
 require('dotenv').config();
 
 const AOU_WEB_CLIENT_ID = process.env.AOU_WEB_CLIENT_ID
@@ -20,15 +30,6 @@ const MODERATORS = [
 	"deliriouszendera",
 	"notariustv"
 ],
-
-module.exports = {
-	twitch_api: function (params) {
-		return call_twitch(params)
-	},
-	validate_token: function (params){
-		return validate_token(params)
-	}
-};
 
 
 function call_twitch(params){
