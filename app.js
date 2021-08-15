@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 
 
 app.get("/twitch_test", (req, res) => {
-	console.log(twitch_api.twitch_api(req))
+	console.log(twitch_api.validate_token(req))
     res.status(200).json({ status: "Success!!!!" });
     // res.sendFile(__dirname + "/breakout/index.html");
 });

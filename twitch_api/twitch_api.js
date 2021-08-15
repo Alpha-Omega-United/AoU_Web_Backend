@@ -8,7 +8,7 @@ module.exports = {
 		return call_twitch(params)
 	},
 	validate_token: function (params){
-		return validate_token(params)
+		return validate_tokens(params)
 	}
 };
 
@@ -29,7 +29,7 @@ const MODERATORS = [
 	"calviz_gaming",
 	"deliriouszendera",
 	"notariustv"
-],
+]
 
 
 function call_twitch(params){
@@ -41,7 +41,7 @@ function call_twitch(params){
 
 
 
-function validate_token(params){
+function validate_tokens(params){
 	const userToken = params.query["userToken"]
 	const userName = params.query["userName"]
 	endpoint="https://id.twitch.tv/oauth2/validate"
