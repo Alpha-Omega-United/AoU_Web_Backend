@@ -50,14 +50,11 @@ function validate_tokens(params){
 			"headers": {
 				"Authorization": "Bearer " + userToken
 			}
-		})
+		}).then((response) => response.json())
 	})
 	console.log("------------------------")
 	console.log("response")
 	console.log(response)
-	console.log("------------------------")
-	console.log("response.json()")
-	console.log(response.json())
 	console.log("------------------------")
 	console.log(`user is mod: ${confirmUser(response.login)}, token expires: ${response.expires_in}`)
 };
