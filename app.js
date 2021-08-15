@@ -1,6 +1,6 @@
-// index.js - nodejs express API
+// app.js - nodejs express API AoU Web Backend
 // Author: ItsOiK
-// Date: Q1-2021
+// Date: 15/08-2021
 
 
 const fs = require("fs");
