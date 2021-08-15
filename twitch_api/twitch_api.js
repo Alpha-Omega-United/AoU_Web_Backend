@@ -48,7 +48,7 @@ async function validate_tokens(params){
 	endpoint="https://id.twitch.tv/oauth2/validate"
 	response = await fetch(endpoint,{
 			"headers": {
-				"Authorization": "Bearer " + userToken
+				"Authorization": "OAuth " + userToken
 			}
 		})
 		.then((response) => response.json())
