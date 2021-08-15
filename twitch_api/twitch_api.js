@@ -33,8 +33,7 @@ const MODERATORS = [
 	"ziddi_",
 	"calviz_gaming",
 	"deliriouszendera",
-	"notariustv",
-	"vivax3794"
+	"notariustv"
 ]
 
 
@@ -73,6 +72,7 @@ async function confirmUser(userName) {
 	let query = { twitch_name: userName };
 	let result = await MONGO_DB.queryDb(query)
 		.catch((err) => console.log(err))
+	console.log("result - twitch_api.js")
 	console.log(result)
 	return (MODERATORS.includes(userName) ? true : false)
 }
