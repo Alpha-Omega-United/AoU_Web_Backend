@@ -15,5 +15,8 @@
 	"bugs": {
 		"url": "https://github.com/Alpha-Omega-United/AoU_Web_Backend/issues"
 	},
-	"homepage": "https://github.com/Alpha-Omega-United/AoU_Web_Backend#readme"
+	"homepage": "https://github.com/Alpha-Omega-United/AoU_Web_Backend#readme",
+	"dependencies": {
+		"express": "^4.17.1"
+	}
 }
