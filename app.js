@@ -10,13 +10,13 @@ const httpServer = require("http").Server(app);
 const io = require("socket.io")(httpServer);
 
 const httpPort = 3000;
-const ip = "192.168.31.54";
 
 //! ------------------------------------ BACKEND ------------------------------------ //
 // //* ------- INDEX --------//
-// app.get("/breakout", (req, res) => {
-//     res.sendFile(__dirname + "/breakout/index.html");
-// });
+app.get("/", (req, res) => {
+    res.status(200).json({ status: "Success!!!!" });
+    // res.sendFile(__dirname + "/breakout/index.html");
+});
 
 // //* ------- COMMANDS --------//
 // app.post("/changeImg", (params, res) => {
@@ -34,7 +34,7 @@ const ip = "192.168.31.54";
 
 //! ------------------------------------ LISTEN ------------------------------------ //
 
-httpServer.listen(httpPort, ip, () => {
+httpServer.listen(process.env.PORT || httpPort, () => {
     time = Date.now();
     console.log(`${time} - HTTP - server running at ${ip}:${httpPort}/`);
 });
