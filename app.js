@@ -14,12 +14,12 @@ const app = require("express")();
 const httpServer = require("http").Server(app);
 const io = require("socket.io")(httpServer);
 
-const httpPort = 3000;
+const httpPort = 9999;
 
 //! ------------------------------------ BACKEND ------------------------------------ //
 // //* ------- INDEX --------//
 app.get("/", (req, res) => {
-	console.log(twitch_api.test_api())
+	console.log(twitch_api.twitch_api(req))
     res.status(200).json({ status: "Success!!!!" });
     // res.sendFile(__dirname + "/breakout/index.html");
 });
