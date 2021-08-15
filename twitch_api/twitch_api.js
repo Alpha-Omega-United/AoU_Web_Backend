@@ -8,6 +8,8 @@ module.exports = {
 		return call_twitch(params)
 	},
 	validate_token: function (params){
+		console.log(params)
+		console.log(params.query)
 		return validate_tokens(params)
 	}
 };
@@ -50,6 +52,11 @@ async function validate_tokens(params){
 
 	const userToken = params.query["userToken"]
 	const userName = params.query["userName"]
+	console.log("------------------------")
+	console.log(userToken)
+	console.log(userName)
+	console.log("------------------------")
+
 	endpoint="https://id.twitch.tv/oauth2/validate"
 	response = await fetch(endpoint,{
 			"headers": {
