@@ -19,7 +19,7 @@ const httpPort = 3000;
 //! ------------------------------------ BACKEND ------------------------------------ //
 // //* ------- INDEX --------//
 app.get("/", (req, res) => {
-	console.log(test_api())
+	console.log(twitch_api.test_api())
     res.status(200).json({ status: "Success!!!!" });
     // res.sendFile(__dirname + "/breakout/index.html");
 });
