@@ -101,7 +101,7 @@ async function confirmUserIsMod(userName) {
 
 
 async function queryDb(params) {
-	const result = await validate_tokens(params.userToken, true)
+	const result = await validate_tokens(params, true)
 	if (result.validation_status.success) {
 		let response
 		if (params.databaseQuery.query == "ADD") {
