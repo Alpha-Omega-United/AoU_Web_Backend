@@ -39,7 +39,8 @@ async function queryManyDb(query) {
 		await client.connect();
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
-		result = await collection.findMany();
+		console.log(collection)
+		result = await collection.find().toArray();
 	} finally {
 		await client.close();
 		return result;
