@@ -121,35 +121,35 @@ async function queryDb(params) {
 
 
 
-const https = require('https')
+// const https = require('https')
 
-const options = {
-	hostname: 'api.twitch.tv',
-	port: 443,
-	path: '/helix/users',
-	method: 'GET',
-	headers: {
-		'client-id': 'twitch app client-id here',
-		'Authorization': 'Bearer ' + requestJSON.data[0].access_token
-	}
-}
+// const options = {
+// 	hostname: 'api.twitch.tv',
+// 	port: 443,
+// 	path: '/helix/users',
+// 	method: 'GET',
+// 	headers: {
+// 		'client-id': 'twitch app client-id here',
+// 		'Authorization': 'Bearer ' + requestJSON.data[0].access_token
+// 	}
+// }
 
-async function request(options, data) {
-    return new Promise((resolve, reject) => {
-        let req = https.request(options, function(res) {
-            let body = '';
-            res.on('data', (chunk) => {
-                body += chunk;
-            });
-            res.on('end', () => {
-                console.log("request: body: "+body);
-                resolve(body);
-            });
-        });
-        req.write(data);
-        req.end();
-    });
-}
+// async function request(options, data) {
+//     return new Promise((resolve, reject) => {
+//         let req = https.request(options, function(res) {
+//             let body = '';
+//             res.on('data', (chunk) => {
+//                 body += chunk;
+//             });
+//             res.on('end', () => {
+//                 console.log("request: body: "+body);
+//                 resolve(body);
+//             });
+//         });
+//         req.write(data);
+//         req.end();
+//     });
+// }
 
 
 
