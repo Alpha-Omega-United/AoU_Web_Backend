@@ -9,11 +9,11 @@ const twitch_api = require("./twitch_api/twitch_api")
 const app = require("express")();
 const cors = require("cors");
 const httpServer = require("http").Server(app);
-
+const bodyParser = require('body-parser');
 const httpPort = 9999;
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //! for specific origins
 // const allowedOrigins = ['https://alpha-omega-united.github.io/', AOU_HEROKU_ENDPOINT]
