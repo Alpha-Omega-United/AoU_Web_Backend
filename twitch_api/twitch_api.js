@@ -157,15 +157,15 @@ async function queryDb(params) {
 
 
 
-a = {
-	"client_id": "wbmytr93xzw8zbg0p1izqyzzc5mbiz",
-	"login": "twitchdev",
-	"scopes": [
-		"channel:read:subscriptions"
-	],
-	"user_id": "141981764",
-	"expires_in": 5520838
-}
+// a = {
+// 	"client_id": "wbmytr93xzw8zbg0p1izqyzzc5mbiz",
+// 	"login": "twitchdev",
+// 	"scopes": [
+// 		"channel:read:subscriptions"
+// 	],
+// 	"user_id": "141981764",
+// 	"expires_in": 5520838
+// }
 
 
 
@@ -173,12 +173,12 @@ a = {
 
 
 
-b = {
-	_id: new ObjectId("611a98d754868b1e9fde220a"),
-	discord_name: 'itsOik#1508',
-	discord_id: new Long("123600164433690625"),
-	twitch_name: 'itsoik',
-	twitch_id: 93645775,
-	points: 0,
-	isAdmin: true
-}
+// b = {
+// 	_id: new ObjectId("611a98d754868b1e9fde220a"),
+// 	discord_name: 'itsOik#1508',
+// 	discord_id: new Long("123600164433690625"),
+// 	twitch_name: 'itsoik',
+// 	twitch_id: 93645775,
+// 	points: 0,
+// 	isAdmin: true
+// }
