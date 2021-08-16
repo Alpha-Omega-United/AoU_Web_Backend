@@ -10,25 +10,69 @@ require('dotenv').config();
 
 
 const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
-const MONGO_DB_TEST_URL = process.env.MONGO_DB_TEST
+// const MONGO_DB_TEST_URL = process.env.MONGO_DB_TEST
 
 
 
-const client = new MongoClient(MONGO_DB_TEST_URL);
+const client = new MongoClient(MONGO_DB_CONNECTION_URL);
 async function queryDb(query) {
 	let result
 	try {
 		await client.connect();
-		const database = client.db('Database');
-		const collection = database.collection('linked_accounts');
-		// Query for a movie that has the title 'Back to the Future'
+		const database = client.db('aou_member_list');
+		const collection = database.collection('members');
 		result = await collection.findOne(query);
 		console.log(result);
 	} finally {
-		// Ensures that the client will close when you finish/error
 		await client.close();
 		return result;
 	}
 }
 
-module.exports = { queryDb }
+async function addDb(data) {
+	console.log(data)
+	let result
+	try {
+		await client.connect();
+		const database = client.db('aou_member_list');
+		const collection = database.collection('members');
+		result = await collection.insertOne(data)
+		console.log(result);
+	} finally {
+		await client.close();
+		return result;
+	}
+}
+
+async function deleteDb(data) {
+	console.log(data)
+	let result
+	try {
+		await client.connect();
+		const database = client.db('aou_member_list');
+		const collection = database.collection('members');
+		result = await collection.insertOne(data)
+		console.log(result);
+	} finally {
+		await client.close();
+		return result;
+	}
+}
+
+async function editDb(data) {
+	console.log(data)
+	let result
+	try {
+		await client.connect();
+		const database = client.db('aou_member_list');
+		const collection = database.collection('members');
+		result = await collection.insertOne(data)
+		console.log(result);
+	} finally {
+		await client.close();
+		return result;
+	}
+}
+
+
+module.exports = { queryDb, addDb, deleteDb, editDb }

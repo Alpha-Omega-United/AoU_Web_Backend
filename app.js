@@ -55,6 +55,18 @@ app.get("/twitch_auth", async (req, res) => {
 
 
 
+// //* ------- MONGODB --------//
+
+app.get("/database", async (req, res) => {
+
+    console.log(result)
+    res.status(200).json({ status: 200, "data": [result] });
+    // res.sendFile(__dirname + "/breakout/index.html");
+});
+
+
+
+
 
 
 

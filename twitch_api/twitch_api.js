@@ -47,7 +47,7 @@ function call_twitch(params) {
 
 async function validate_tokens(params) {
 	const userToken = params.query["userToken"]
-	const userName = params.query["userName"]
+	// const userName = params.query["userName"]
 	endpoint = "https://id.twitch.tv/oauth2/validate"
 	let response = await fetch(endpoint, {
 		"headers": {
@@ -69,11 +69,24 @@ async function validate_tokens(params) {
 async function confirmUser(userName) {
 	//TODO setup ngrok to localhost "database"
 
+	// let query = { twitch_name: userName };
+	// let result = await MONGO_DB.queryDb(query)
+	// 	.catch((err) => console.log(err))
+	// console.log("result - twitch_api.js")
+	// console.log(result)
+
+
 	let query = { twitch_name: userName };
-	let result = await MONGO_DB.queryDb(query)
+	let result = await MONGO_DB.addDb(query)
 		.catch((err) => console.log(err))
 	console.log("result - twitch_api.js")
 	console.log(result)
+
+
+
+
+
+
 	return (MODERATORS.includes(userName) ? true : false)
 }
 
