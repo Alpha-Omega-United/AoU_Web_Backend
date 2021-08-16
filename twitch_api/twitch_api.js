@@ -47,7 +47,7 @@ function call_twitch(params) {
 
 async function validate_tokens(params) {
 	const userToken = params.query["userToken"]
-	// const userName = params.query["userName"]
+	const userName = params.query["userName"]
 	endpoint = "https://id.twitch.tv/oauth2/validate"
 	let response = await fetch(endpoint, {
 		"headers": {
@@ -66,18 +66,19 @@ async function validate_tokens(params) {
 
 
 
-	if (params.query["database"]["query"]){
-		MONGO_DB.queryDb()
-	}
-	if (params.query["database"]["add"]){
-		MONGO_DB.addDb()
-	}
-	if (params.query["database"]["edit"]){
-		MONGO_DB.editDb()
-	}
-	if (params.query["database"]["delete"]){
-		MONGO_DB.deleteDb()
-	}
+		if (params.query["database"]["QUERY"]) {
+			MONGO_DB.queryDb()
+		}
+		if (params.query["database"]["ADD"]) {
+			let data = { "twitch_name": userName }
+			MONGO_DB.addDb(data)
+		}
+		if (params.query["database"]["EDIT"]) {
+			MONGO_DB.editDb()
+		}
+		if (params.query["database"]["DELETE"]) {
+			MONGO_DB.deleteDb()
+		}
 	}
 
 
