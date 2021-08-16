@@ -16,6 +16,8 @@ const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
 
 const client = new MongoClient(MONGO_DB_CONNECTION_URL);
 async function queryDb(query) {
+	console.log("queryDb")
+	console.log(query)
 	let result
 	try {
 		await client.connect();
@@ -30,6 +32,7 @@ async function queryDb(query) {
 }
 
 async function addDb(data) {
+	console.log("addDb")
 	console.log(data)
 	let result
 	try {
@@ -45,6 +48,7 @@ async function addDb(data) {
 }
 
 async function deleteDb(data) {
+	console.log("deleteDb")
 	console.log(data)
 	let result
 	try {
@@ -60,6 +64,7 @@ async function deleteDb(data) {
 }
 
 async function editDb(data) {
+	console.log("editDb")
 	console.log(data)
 	let result
 	try {
