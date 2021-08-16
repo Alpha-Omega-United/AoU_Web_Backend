@@ -16,8 +16,9 @@ const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
 
 const client = new MongoClient(MONGO_DB_CONNECTION_URL);
 async function queryOneDb(query) {
-	console.log(`queryDb: ${query}`)
-	console.log()
+	console.log("------------queryOneDb--------------")
+	console.log(query)
+	console.log("--------------------------")
 	let result
 	try {
 		await client.connect();
@@ -30,14 +31,15 @@ async function queryOneDb(query) {
 	}
 }
 async function queryManyDb(query) {
-	console.log(`queryDb: ${query}`)
-	console.log()
+	console.log("------------queryManyDb--------------")
+	console.log(query)
+	console.log("--------------------------")
 	let result
 	try {
 		await client.connect();
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
-		result = await collection.findMany(query);
+		result = await collection.findMany();
 	} finally {
 		await client.close();
 		return result;
@@ -45,8 +47,9 @@ async function queryManyDb(query) {
 }
 
 async function addDb(data) {
-	console.log(`addDb: ${data}`)
-	console.log()
+	console.log("------------addDb--------------")
+	console.log(data)
+	console.log("--------------------------")
 	let result
 	try {
 		await client.connect();
@@ -60,8 +63,9 @@ async function addDb(data) {
 }
 
 async function deleteDb(data) {
-	console.log(`deleteDb: ${data}`)
-	console.log()
+	console.log("------------deleteDb--------------")
+	console.log(data)
+	console.log("--------------------------")
 	let result
 	try {
 		await client.connect();
@@ -75,8 +79,9 @@ async function deleteDb(data) {
 }
 
 async function editDb(data) {
-	console.log(`editDb: ${data}`)
-	console.log()
+	console.log("------------editDb--------------")
+	console.log(data)
+	console.log("--------------------------")
 	let result
 	try {
 		await client.connect();

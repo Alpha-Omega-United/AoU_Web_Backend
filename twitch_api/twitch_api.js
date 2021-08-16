@@ -89,23 +89,27 @@ async function confirmUserIsMod(userName) {
 
 
 
-function queryDb(params) {
+async function queryDb(params) {
+	let result
 	if (params.query["database"] == "QUERYONE") {
-		MONGO_DB.queryOneDb()
+		result = await MONGO_DB.queryOneDb()
 	}
 	if (params.query["database"] == "QUERYMANY") {
-		MONGO_DB.queryManyDb({})
+		result = await MONGO_DB.queryManyDb({})
 	}
 	if (params.query["database"] == "ADD") {
 		let data = { "twitch_name": userName }
-		MONGO_DB.addDb(data)
+		result = await MONGO_DB.addDb(data)
 	}
 	if (params.query["database"] == "EDIT") {
-		MONGO_DB.editDb()
+		result = await MONGO_DB.editDb()
 	}
 	if (params.query["database"] == "DELETE") {
-		MONGO_DB.deleteDb()
+		result = await MONGO_DB.deleteDb()
 	}
+	console.log("-----------TWITCH_API.js-----------")
+	console.log(result)
+	console.log("-------------------------------------")
 }
 
 
