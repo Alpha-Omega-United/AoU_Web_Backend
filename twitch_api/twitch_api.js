@@ -63,20 +63,18 @@ async function validate_tokens(params) {
 
 	if (userResponse) {
 		console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
-
-
-
-		if (params.query["database"]["QUERY"]) {
+		console.log(params.query["database"])
+		if (params.query["database"] == "QUERY") {
 			MONGO_DB.queryDb()
 		}
-		if (params.query["database"]["ADD"]) {
+		if (params.query["database"] == "ADD") {
 			let data = { "twitch_name": userName }
 			MONGO_DB.addDb(data)
 		}
-		if (params.query["database"]["EDIT"]) {
+		if (params.query["database"] == "EDIT") {
 			MONGO_DB.editDb()
 		}
-		if (params.query["database"]["DELETE"]) {
+		if (params.query["database"] == "DELETE") {
 			MONGO_DB.deleteDb()
 		}
 	}
