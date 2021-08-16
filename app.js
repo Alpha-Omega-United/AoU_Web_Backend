@@ -9,11 +9,10 @@ const twitch_api = require("./twitch_api/twitch_api")
 const app = require("express")();
 const cors = require("cors");
 const httpServer = require("http").Server(app);
-const bodyParser = require('body-parser');
 const httpPort = 9999;
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors({ origin: '*' }));
+app.use(express.json());
 
 //! for specific origins
 // const allowedOrigins = ['https://alpha-omega-united.github.io/', AOU_HEROKU_ENDPOINT]
@@ -73,7 +72,6 @@ app.post("/database", async (req, res) => {
     // console.log(result)
     // res.status(200).json({ status: 200, "data": [result] });
     res.status(200).json({ status: 200, "data": ["result"] });
-    // res.sendFile(__dirname + "/breakout/index.html");
 });
 
 
