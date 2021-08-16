@@ -47,8 +47,6 @@ function call_twitch(params) {
 	return { "it_works": true }
 }
 
-
-
 async function validate_tokens(params) {
 	const userToken = params.query["userToken"]
 	const userName = params.query["userName"]
@@ -96,7 +94,7 @@ function queryDb(params) {
 		MONGO_DB.queryOneDb()
 	}
 	if (params.query["database"] == "QUERYMANY") {
-		MONGO_DB.queryManyDb("{}")
+		MONGO_DB.queryManyDb({})
 	}
 	if (params.query["database"] == "ADD") {
 		let data = { "twitch_name": userName }

@@ -16,8 +16,7 @@ const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
 
 const client = new MongoClient(MONGO_DB_CONNECTION_URL);
 async function queryOneDb(query) {
-	console.log("queryDb")
-	console.log(query)
+	console.log("queryOneDb: " + query)
 	let result
 	try {
 		await client.connect();
@@ -30,8 +29,7 @@ async function queryOneDb(query) {
 	}
 }
 async function queryManyDb(query) {
-	console.log("queryDb")
-	console.log(query)
+	console.log("queryManyDb: " + query)
 	let result
 	try {
 		await client.connect();
@@ -45,8 +43,7 @@ async function queryManyDb(query) {
 }
 
 async function addDb(data) {
-	console.log("addDb")
-	console.log(data)
+	console.log("addDb: " + data)
 	let result
 	try {
 		await client.connect();
@@ -60,8 +57,7 @@ async function addDb(data) {
 }
 
 async function deleteDb(data) {
-	console.log("deleteDb")
-	console.log(data)
+	console.log("deleteDb: " + data)
 	let result
 	try {
 		await client.connect();
@@ -75,8 +71,7 @@ async function deleteDb(data) {
 }
 
 async function editDb(data) {
-	console.log("editDb")
-	console.log(data)
+	console.log("editDb: " + data)
 	let result
 	try {
 		await client.connect();
