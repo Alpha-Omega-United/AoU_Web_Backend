@@ -55,7 +55,7 @@ async function deleteDb(data) {
 		await client.connect();
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
-		result = await collection.insertOne(data)
+		result = await collection.deleteOne(data)
 		console.log(result);
 	} finally {
 		await client.close();
@@ -71,7 +71,7 @@ async function editDb(data) {
 		await client.connect();
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
-		result = await collection.insertOne(data)
+		result = await collection.updateOne({ twitch_id: data.twitch_id }, data)
 		console.log(result);
 	} finally {
 		await client.close();
