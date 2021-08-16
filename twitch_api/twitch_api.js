@@ -39,9 +39,14 @@ const MODERATORS = [
 
 
 
-async function validate_tokens(params) {
+async function validate_tokens(params, dbValidating = false) {
+	let userToken
 	try {
-		const userToken = params.query["userToken"] || params.userToken;
+		if (dbValidating) {
+			userToken = params.userToken;
+		} else {
+			userToken = params.query["userToken"];
+		}
 		if (userToken.length < 1) {
 			return { "validation_status": { "success": false, "reason": "missing token" } }
 		}
