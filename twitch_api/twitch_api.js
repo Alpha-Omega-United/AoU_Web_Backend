@@ -33,7 +33,8 @@ const MODERATORS = [
 	"ziddi_",
 	"calviz_gaming",
 	"deliriouszendera",
-	"notariustv"
+	"notariustv",
+	"vivax3794"
 ]
 
 
@@ -59,24 +60,11 @@ async function validate_tokens(params) {
 			return data
 		})
 		.catch((err) => console.log(err))
-	let userResponse = await confirmUser(response.login)
+	let userResponse = await confirmUserIsMod(response.login)
 
 	if (userResponse) {
 		console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
 		console.log(params.query["database"])
-		if (params.query["database"] == "QUERY") {
-			MONGO_DB.queryDb()
-		}
-		if (params.query["database"] == "ADD") {
-			let data = { "twitch_name": userName }
-			MONGO_DB.addDb(data)
-		}
-		if (params.query["database"] == "EDIT") {
-			MONGO_DB.editDb()
-		}
-		if (params.query["database"] == "DELETE") {
-			MONGO_DB.deleteDb()
-		}
 	}
 
 
@@ -86,11 +74,11 @@ async function validate_tokens(params) {
 
 
 
-async function confirmUser(userName) {
+async function confirmUserIsMod(userName) {
 	//TODO setup ngrok to localhost "database"
 
-	let query = { twitch_name: userName };
-	let result = await MONGO_DB.queryDb(query)
+	let query = { isAdmin: true };
+	let result = await MONGO_DB.queryManyDb(query)
 		.catch((err) => console.log(err))
 	console.log("result - twitch_api.js")
 	console.log(result)
@@ -100,7 +88,24 @@ async function confirmUser(userName) {
 
 
 
-
+function queryDb() {
+	if (params.query["database"] == "QUERYONE") {
+		MONGO_DB.queryOneDb()
+	}
+	if (params.query["database"] == "QUERYMANY") {
+		MONGO_DB.queryOneDb()
+	}
+	if (params.query["database"] == "ADD") {
+		let data = { "twitch_name": userName }
+		MONGO_DB.addDb(data)
+	}
+	if (params.query["database"] == "EDIT") {
+		MONGO_DB.editDb()
+	}
+	if (params.query["database"] == "DELETE") {
+		MONGO_DB.deleteDb()
+	}
+}
 
 
 

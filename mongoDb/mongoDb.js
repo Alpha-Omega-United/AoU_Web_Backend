@@ -15,7 +15,7 @@ const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
 
 
 const client = new MongoClient(MONGO_DB_CONNECTION_URL);
-async function queryDb(query) {
+async function queryOneDb(query) {
 	console.log("queryDb")
 	console.log(query)
 	let result
@@ -24,7 +24,20 @@ async function queryDb(query) {
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
 		result = await collection.findOne(query);
-		console.log(result);
+	} finally {
+		await client.close();
+		return result;
+	}
+}
+async function queryManyDb(query) {
+	console.log("queryDb")
+	console.log(query)
+	let result
+	try {
+		await client.connect();
+		const database = client.db('aou_member_list');
+		const collection = database.collection('members');
+		result = await collection.findMany(query);
 	} finally {
 		await client.close();
 		return result;
@@ -40,7 +53,6 @@ async function addDb(data) {
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
 		result = await collection.insertOne(data)
-		console.log(result);
 	} finally {
 		await client.close();
 		return result;
@@ -56,7 +68,6 @@ async function deleteDb(data) {
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
 		result = await collection.deleteOne(data)
-		console.log(result);
 	} finally {
 		await client.close();
 		return result;
@@ -72,7 +83,6 @@ async function editDb(data) {
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
 		result = await collection.updateOne({ twitch_id: data.twitch_id }, data)
-		console.log(result);
 	} finally {
 		await client.close();
 		return result;
@@ -80,4 +90,4 @@ async function editDb(data) {
 }
 
 
-module.exports = { queryDb, addDb, deleteDb, editDb }
+module.exports = { queryOneDb, queryManyDb, addDb, deleteDb, editDb }
