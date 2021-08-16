@@ -6,17 +6,14 @@ AOU_HEROKU_ENDPOINT = "https://aou-website-backend.herokuapp.com/"
 
 const twitch_api = require("./twitch_api/twitch_api")
 
-
-
-const fs = require("fs");
 const app = require("express")();
 const cors = require("cors");
-
 const httpServer = require("http").Server(app);
-const io = require("socket.io")(httpServer);
 
 const httpPort = 9999;
 
+app.use(cors());
+app.use(bodyParser.urlencoded({extended:false}));
 
 //! for specific origins
 // const allowedOrigins = ['https://alpha-omega-united.github.io/', AOU_HEROKU_ENDPOINT]
@@ -33,7 +30,6 @@ const httpPort = 9999;
 // app.use(cors(corsOptions));
 //! for specific origins
 
-app.use(cors());
 
 
 //! ------------------------------------ BACKEND ------------------------------------ //
@@ -71,7 +67,6 @@ app.post("/database", async (req, res) => {
     console.log(req.query)
     console.log("-------------req.body-----------")
     console.log(req.body)
-    console.log(req.body.json())
     console.log("-------------req.params-----------")
     console.log(req.params)
     // result = await twitch_api.queryDb(req)
