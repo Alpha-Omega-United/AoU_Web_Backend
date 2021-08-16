@@ -60,7 +60,28 @@ async function validate_tokens(params) {
 		})
 		.catch((err) => console.log(err))
 	let userResponse = await confirmUser(response.login)
-	console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
+
+	if (userResponse) {
+		console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
+
+
+
+	if (params.query["database"]["query"]){
+		MONGO_DB.queryDb()
+	}
+	if (params.query["database"]["add"]){
+		MONGO_DB.addDb()
+	}
+	if (params.query["database"]["edit"]){
+		MONGO_DB.editDb()
+	}
+	if (params.query["database"]["delete"]){
+		MONGO_DB.deleteDb()
+	}
+	}
+
+
+
 	return JSON.stringify({ "validation_status": { "success": userResponse } })
 };
 
@@ -69,23 +90,11 @@ async function validate_tokens(params) {
 async function confirmUser(userName) {
 	//TODO setup ngrok to localhost "database"
 
-	// let query = { twitch_name: userName };
-	// let result = await MONGO_DB.queryDb(query)
-	// 	.catch((err) => console.log(err))
-	// console.log("result - twitch_api.js")
-	// console.log(result)
-
-
 	let query = { twitch_name: userName };
-	let result = await MONGO_DB.addDb(query)
+	let result = await MONGO_DB.queryDb(query)
 		.catch((err) => console.log(err))
 	console.log("result - twitch_api.js")
 	console.log(result)
-
-
-
-
-
 
 	return (MODERATORS.includes(userName) ? true : false)
 }
