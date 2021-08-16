@@ -88,12 +88,12 @@ async function confirmUserIsMod(userName) {
 
 
 
-function queryDb() {
+function queryDb(params) {
 	if (params.query["database"] == "QUERYONE") {
 		MONGO_DB.queryOneDb()
 	}
 	if (params.query["database"] == "QUERYMANY") {
-		MONGO_DB.queryOneDb()
+		MONGO_DB.queryManyDb("{}")
 	}
 	if (params.query["database"] == "ADD") {
 		let data = { "twitch_name": userName }
