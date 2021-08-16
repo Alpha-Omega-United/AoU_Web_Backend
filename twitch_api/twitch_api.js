@@ -40,12 +40,14 @@ const MODERATORS = [
 
 
 async function validate_tokens(params, dbValidating = false) {
-	let userToken
+	let userToken, userName;
 	try {
 		if (dbValidating) {
 			userToken = params.userToken;
+			userName = params.userName
 		} else {
 			userToken = params.query["userToken"];
+			userName = params.query["userName"]
 		};
 		if (userToken.length < 1) {
 			return { "validation_status": { "success": false, "reason": "missing token" } }
@@ -54,9 +56,8 @@ async function validate_tokens(params, dbValidating = false) {
 		console.log(err)
 		return { "validation_status": { "success": false, "reason": "missing token" } }
 	}
-	const userName = params.query["userName"]
 	const endpoint = "https://id.twitch.tv/oauth2/validate"
-	let response = await fetch(endpoint, {
+	const response = await fetch(endpoint, {
 		"headers": {
 			"Authorization": "OAuth " + userToken
 		}
