@@ -4,9 +4,6 @@
 
 
 module.exports = {
-	twitch_api: function (params) {
-		return call_twitch(params)
-	},
 	validate_token: function (params) {
 		return validate_tokens(params)
 	},
@@ -41,16 +38,19 @@ const MODERATORS = [
 ]
 
 
-function call_twitch(params) {
-	userName = params.query["userName"]
-	userToken = params.query["userToken"]
-	return { "it_works": true }
-}
 
 async function validate_tokens(params) {
-	const userToken = params.query["userToken"]
+	try {
+		const userToken = params.query["userToken"]
+		if (userToken.length < 1) {
+			return { "validation_status": { "success": false, "reason": "missing token" } }
+		}
+	} catch (err) {
+		console.log(err)
+		return { "validation_status": { "success": false, "reason": "missing token" } }
+	}
 	const userName = params.query["userName"]
-	endpoint = "https://id.twitch.tv/oauth2/validate"
+	const endpoint = "https://id.twitch.tv/oauth2/validate"
 	let response = await fetch(endpoint, {
 		"headers": {
 			"Authorization": "OAuth " + userToken
@@ -61,56 +61,97 @@ async function validate_tokens(params) {
 			return data
 		})
 		.catch((err) => console.log(err))
-	let userResponse = await confirmUserIsMod(response.login)
-
-	if (userResponse) {
-		console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
-		console.log(params.query["database"])
+	let confirmedUserResult = await confirmUserToken(response, userName)
+	if (confirmedUserResult) {
+		let userResponse = await confirmUserIsMod(response.login)
+		if (userResponse) {
+			console.log("------------------------ confirmUserIsMod ------------------------")
+			console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
+			console.log("------------------------------------------------------------------")
+			const result = await MONGO_DB.queryGetAllDb()
+			return { "validation_status": { "success": userResponse }, "data": result }
+		} else {
+			return { "validation_status": { "success": userResponse, "reason": "invalid user" } }
+		}
+	} else {
+		return { "validation_status": { "success": userResponse, "reason": "invalid token" } }
 	}
-
-
-
-	return JSON.stringify({ "validation_status": { "success": userResponse } })
 };
 
+async function confirmUserToken(data, user) {
+	if (data.login.toLowerCase() === user.toLowerCase() && data.client_id == AOU_WEB_CLIENT_ID) {
+		return true
+	}
+	return false
+}
 
 
 async function confirmUserIsMod(userName) {
-	//TODO setup ngrok to localhost "database"
-
-	let query = { isAdmin: true };
-	let result = await MONGO_DB.queryManyDb(query)
+	let query = { twitch_name: userName.toLowerCase() };
+	let result = await MONGO_DB.queryOneDb(query)
 		.catch((err) => console.log(err))
-	console.log("result - twitch_api.js")
-	console.log(result)
-
-	return (MODERATORS.includes(userName) ? true : false)
+	return result.isAdmin
 }
 
 
 
 async function queryDb(params) {
-	let result
-	if (params.query["database"] == "QUERYONE") {
-		result = await MONGO_DB.queryOneDb()
+	const result = await validate_tokens(params)
+	if (result.validation_status.success) {
+		let response
+		if (params.query["database"] == "QUERYONE") {
+			response = await MONGO_DB.queryOneDb()
+		} else if (params.query["database"] == "QUERYMANY") {
+			response = await MONGO_DB.queryManyDb()
+		} else if (params.query["database"] == "ADD") {
+			let data = { "twitch_name": userName }
+			response = await MONGO_DB.addDb(data)
+		} else if (params.query["database"] == "EDIT") {
+			response = await MONGO_DB.editDb()
+		} else if (params.query["database"] == "DELETE") {
+			response = await MONGO_DB.deleteDb()
+		}
+		console.log("-----------TWITCH_API.js-----------")
+		console.log(response)
+		console.log("-----------------------------------")
 	}
-	if (params.query["database"] == "QUERYMANY") {
-		result = await MONGO_DB.queryManyDb({})
-	}
-	if (params.query["database"] == "ADD") {
-		let data = { "twitch_name": userName }
-		result = await MONGO_DB.addDb(data)
-	}
-	if (params.query["database"] == "EDIT") {
-		result = await MONGO_DB.editDb()
-	}
-	if (params.query["database"] == "DELETE") {
-		result = await MONGO_DB.deleteDb()
-	}
-	console.log("-----------TWITCH_API.js-----------")
-	console.log(result)
-	console.log("-------------------------------------")
 }
+
+
+
+
+
+const https = require('https')
+
+const options = {
+	hostname: 'api.twitch.tv',
+	port: 443,
+	path: '/helix/users',
+	method: 'GET',
+	headers: {
+		'client-id': 'twitch app client-id here',
+		'Authorization': 'Bearer ' + requestJSON.data[0].access_token
+	}
+}
+
+async function request(options, data) {
+    return new Promise((resolve, reject) => {
+        let req = https.request(options, function(res) {
+            let body = '';
+            res.on('data', (chunk) => {
+                body += chunk;
+            });
+            res.on('end', () => {
+                console.log("request: body: "+body);
+                resolve(body);
+            });
+        });
+        req.write(data);
+        req.end();
+    });
+}
+
+
 
 
 
@@ -124,4 +165,20 @@ a = {
 	],
 	"user_id": "141981764",
 	"expires_in": 5520838
+}
+
+
+
+
+
+
+
+b = {
+	_id: new ObjectId("611a98d754868b1e9fde220a"),
+	discord_name: 'itsOik#1508',
+	discord_id: new Long("123600164433690625"),
+	twitch_name: 'itsoik',
+	twitch_id: 93645775,
+	points: 0,
+	isAdmin: true
 }

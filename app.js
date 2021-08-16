@@ -37,7 +37,7 @@ app.use(cors());
 
 
 //! ------------------------------------ BACKEND ------------------------------------ //
-// //* ------- INDEX --------//
+//* ------- INDEX --------//
 app.get("/", (req, res) => {
     res.status(200).json({ status: "Success!!!!" });
     // res.sendFile(__dirname + "/breakout/index.html");
@@ -48,16 +48,23 @@ app.get("/twitch_auth", async (req, res) => {
     result = await twitch_api.validate_token(req)
     console.log("result - app.js")
     console.log(result)
-    res.status(200).json({ status: 200, "data": [result] });
-    // res.sendFile(__dirname + "/breakout/index.html");
+    if (result.validation_status.success) {
+        res.status(200).json({ status: 200, "data": [JSON.stringify(result)] });
+    } else {
+        if (result.validation_status.reason.includes("missing")) {
+            res.status(401).json({ status: 401 });
+        }
+        if (result.validation_status.reason.includes("invalid")) {
+            res.status(403).json({ status: 403 });
+        }
+    }
 });
 
 
 
 
-// //* ------- MONGODB --------//
-
-app.get("/database", async (req, res) => {
+//* ------- MONGODB --------//
+app.put("/database", async (req, res) => {
     result = await twitch_api.queryDb(req)
     console.log(result)
     res.status(200).json({ status: 200, "data": [result] });

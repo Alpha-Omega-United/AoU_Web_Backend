@@ -18,7 +18,7 @@ const client = new MongoClient(MONGO_DB_CONNECTION_URL);
 async function queryOneDb(query) {
 	console.log("------------queryOneDb--------------")
 	console.log(query)
-	console.log("--------------------------")
+	console.log("------------------------------------")
 	let result
 	try {
 		await client.connect();
@@ -33,13 +33,25 @@ async function queryOneDb(query) {
 async function queryManyDb(query) {
 	console.log("------------queryManyDb--------------")
 	console.log(query)
-	console.log("--------------------------")
+	console.log("-------------------------------------")
 	let result
 	try {
 		await client.connect();
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
-		console.log(collection)
+		result = await collection.findMany(query);
+	} finally {
+		await client.close();
+		return result;
+	}
+}
+async function queryGetAllDb() {
+	console.log("------------queryManyDb--------------")
+	let result
+	try {
+		await client.connect();
+		const database = client.db('aou_member_list');
+		const collection = database.collection('members');
 		result = await collection.find().toArray();
 	} finally {
 		await client.close();
@@ -50,7 +62,7 @@ async function queryManyDb(query) {
 async function addDb(data) {
 	console.log("------------addDb--------------")
 	console.log(data)
-	console.log("--------------------------")
+	console.log("-------------------------------")
 	let result
 	try {
 		await client.connect();
@@ -66,7 +78,7 @@ async function addDb(data) {
 async function deleteDb(data) {
 	console.log("------------deleteDb--------------")
 	console.log(data)
-	console.log("--------------------------")
+	console.log("----------------------------------")
 	let result
 	try {
 		await client.connect();
@@ -82,7 +94,7 @@ async function deleteDb(data) {
 async function editDb(data) {
 	console.log("------------editDb--------------")
 	console.log(data)
-	console.log("--------------------------")
+	console.log("--------------------------------")
 	let result
 	try {
 		await client.connect();
@@ -96,4 +108,4 @@ async function editDb(data) {
 }
 
 
-module.exports = { queryOneDb, queryManyDb, addDb, deleteDb, editDb }
+module.exports = { queryOneDb, queryManyDb, queryGetAllDb, addDb, deleteDb, editDb }
