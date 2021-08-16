@@ -6,7 +6,8 @@ AOU_HEROKU_ENDPOINT = "https://aou-website-backend.herokuapp.com/"
 
 const twitch_api = require("./twitch_api/twitch_api")
 
-const app = require("express")();
+const express = require("express");
+const app = express();
 const cors = require("cors");
 const httpServer = require("http").Server(app);
 const httpPort = 9999;
