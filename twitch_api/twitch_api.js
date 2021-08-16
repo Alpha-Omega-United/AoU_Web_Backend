@@ -9,6 +9,9 @@ module.exports = {
 	},
 	validate_token: function (params) {
 		return validate_tokens(params)
+	},
+	queryDb: function (params) {
+		queryDb(params)
 	}
 };
 
