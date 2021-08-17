@@ -80,7 +80,7 @@ async function validate_tokens(params, dbValidating = false) {
 			return { "validation_status": { "success": userResponse, "reason": "invalid user" } }
 		}
 	} else {
-		return { "validation_status": { "success": userResponse, "reason": "invalid token" } }
+		return { "validation_status": { "success": false, "reason": "invalid token" } }
 	}
 };
 
