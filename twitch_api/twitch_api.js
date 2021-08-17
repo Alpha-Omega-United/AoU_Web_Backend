@@ -106,15 +106,15 @@ async function queryDb(params) {
 	if (result.validation_status.success) {
 		let response
 		if (params.databaseQuery.query == "ADD") {
-			response = await MONGO_DB.addDb(params.databaseQuery.userData)
+			response = await MONGO_DB.addDb(params.databaseQuery.userData) //* WORKS
 		} else if (params.databaseQuery.query == "EDIT") {
-			response = await MONGO_DB.editDb(params.databaseQuery.userData)
+			response = await MONGO_DB.editDb(params.databaseQuery.userData) // TODO REQUIRES TESTING
 			// } else if (params.databaseQuery.query == "DELETE") { //! DISABLED WHILE TESTING
 			// 	response = await MONGO_DB.deleteDb(params.databaseQuery.userData) //! DISABLED WHILE TESTING
 		} else if (params.databaseQuery.query == "QUERYONE") {
-			response = await MONGO_DB.queryOneDb(params.databaseQuery.userData)
+			response = await MONGO_DB.queryOneDb(params.databaseQuery.userData) // TODO REQUIRES TESTING
 		} else if (params.databaseQuery.query == "QUERYMANY") {
-			response = await MONGO_DB.queryManyDb(params.databaseQuery.userData)
+			response = await MONGO_DB.queryManyDb(params.databaseQuery.userData) // TODO REQUIRES TESTING
 		};
 		console.log("-----------TWITCH_API.js-----------")
 		console.log(response)
@@ -122,23 +122,6 @@ async function queryDb(params) {
 		return response
 	}
 }
-
-
-a = {
-	userName: 'itsOiK',
-	userToken: "xxxxxxxxxxx",
-	databaseQuery: {
-		query: 'ADD',
-		userData: {
-			twitchName: 'UserNameOfSomeone',
-			twitchId: 981251231237,
-			discordName: 'DiscordNameOfSomeone',
-			discordId: 7623414912,
-			points: 91214248190
-		}
-	}
-}
-
 
 
 
