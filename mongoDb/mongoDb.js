@@ -94,6 +94,7 @@ async function deleteDb(data) {
 async function editDb(data) {
 	console.log("------------editDb--------------")
 	console.log(data)
+	data[whatever] = 
 	console.log("--------------------------------")
 	let result
 	try {
