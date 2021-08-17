@@ -74,8 +74,12 @@ async function validate_tokens(params, dbValidating = false) {
 			console.log("------------------------ confirmUserIsMod ------------------------")
 			console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
 			console.log("------------------------------------------------------------------")
-			const result = await MONGO_DB.queryGetAllDb()
-			return { "validation_status": { "success": userResponse }, "data": result }
+			if (!dbValidating) {
+				const result = await MONGO_DB.queryGetAllDb()
+				return { "validation_status": { "success": userResponse }, "data": result }
+			} else {
+				return { "validation_status": { "success": userResponse }}
+			}
 		} else {
 			return { "validation_status": { "success": userResponse, "reason": "invalid user" } }
 		}
