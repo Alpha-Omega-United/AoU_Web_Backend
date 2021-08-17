@@ -8,7 +8,7 @@ module.exports = {
 		return validate_tokens(params)
 	},
 	queryDb: function (params) {
-		queryDb(params)
+		return queryDb(params)
 	}
 };
 
