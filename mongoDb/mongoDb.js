@@ -46,7 +46,7 @@ async function queryManyDb(query) {
 	}
 }
 async function queryGetAllDb() {
-	console.log("------------queryManyDb--------------")
+	console.log("------------queryGetAllDb--------------")
 	let result
 	try {
 		await client.connect();
