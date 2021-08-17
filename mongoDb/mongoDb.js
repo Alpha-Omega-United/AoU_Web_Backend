@@ -101,6 +101,7 @@ async function editDb(data) {
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
 		result = await collection.updateOne({ twitch_id: data.twitch_id }, data)
+		result = await collection.updateMany
 	} finally {
 		await client.close();
 		return result;

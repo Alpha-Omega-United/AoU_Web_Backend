@@ -115,6 +115,8 @@ async function queryDb(params) {
 			response = await MONGO_DB.queryOneDb(params.databaseQuery.userData) // TODO REQUIRES TESTING
 		} else if (params.databaseQuery.query == "QUERYMANY") {
 			response = await MONGO_DB.queryManyDb(params.databaseQuery.userData) // TODO REQUIRES TESTING
+		} else if (params.databaseQuery.query == "QUERYGETALL") {
+			response = await MONGO_DB.queryGetAllDb() // TODO REQUIRES TESTING
 		};
 		console.log("-----------TWITCH_API.js-----------")
 		console.log(response)
