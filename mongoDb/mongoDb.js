@@ -21,7 +21,7 @@ async function queryAny(query) {
 		}
 		if (query.query == "EDIT") {
 			console.log("------------editDb--------------")
-			response = await collection.updateOne({ _id: query.userData._id }, { $set: query.userData })
+			response = await collection.updateOne({ "_id": new ObjectId(query.userData._id) }, { $set: query.userData })
 		}
 		if (query.query == "DELETE") {
 			console.log("------------deleteDb--------------")
@@ -30,9 +30,9 @@ async function queryAny(query) {
 		if (query.query == "QUERYONE") {
 			console.log("------------queryOneDb--------------")
 			if ("twitch_id" in query.userData) {
-				response = await collection.findOne(query.userData);
+				response = await collection.findOne({ "twitch_name": query.userData.twitch_name });
 			} else if ("_id" in query.userData) {
-				response = await collection.findOne({ "_id": ObjectId(query.userData._id) });
+				response = await collection.findOne({ "_id": new ObjectId(query.userData._id) });
 			}
 		}
 		if (query.query == "QUERYMANY") {
