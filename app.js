@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 
 app.get("/twitch_auth", async (req, res) => {
     console.log("/twitch_auth")
-    let result = await twitch_api.validate_token(req)
+    let result = await twitch_api.validate_tokens(req)
     console.log("result - app.js")
     console.log(result)
     if (result.validation_status.success) {
@@ -48,7 +48,7 @@ app.post("/database", async (req, res) => {
         console.log("-------------req.body-----------")
         console.log(req.body)
         console.log("--------------------------------")
-        let result = await twitch_api.apiQueryDb(req.body)
+        let result = await twitch_api.queryDb(req.body)
         console.log("-------------JSON.stringify(result)-----------")
         console.log("result:")
         console.log(result)
