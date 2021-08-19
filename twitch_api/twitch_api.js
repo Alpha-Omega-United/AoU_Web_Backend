@@ -116,10 +116,21 @@ async function queryDb(params) {
 	const result = await validate_tokens(params, true)
 	if (result.validation_status.success) {
 		//! TEST AREA
-		let response = await MONGO_DB.queryAny(params.databaseQuery)
+		let response
+		try {
+			response = await MONGO_DB.queryAny(params.databaseQuery)
+			response["status"] = "ok"
+		} catch (err) {
+			console.log(err)
+			response = { status: "error" }
+		} finally {
+			console.log("-----------TWITCH_API.js-----------")
+			console.log(response)
+			console.log("-----------------------------------")
+			return response
+		}
 		//! TEST AREA
 
-		// let response
 		// if (params.databaseQuery.query == "ADD") {
 		// 	response = await MONGO_DB.addDb(params.databaseQuery.userData) //* WORKS
 		// } else if (params.databaseQuery.query == "EDIT") {
@@ -133,10 +144,10 @@ async function queryDb(params) {
 		// } else if (params.databaseQuery.query == "QUERYGETALL") {
 		// 	response = await MONGO_DB.queryGetAllDb() // TODO REQUIRES TESTING
 		// };
-		console.log("-----------TWITCH_API.js-----------")
-		console.log(response)
-		console.log("-----------------------------------")
-		return response
+		// console.log("-----------TWITCH_API.js-----------")
+		// console.log(response)
+		// console.log("-----------------------------------")
+		// return response
 	}
 }
 

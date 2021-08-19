@@ -47,11 +47,19 @@ app.post("/database", async (req, res) => {
         console.log("-------------req.body-----------")
         console.log(req.body)
         console.log("--------------------------------")
-        const result = await twitch_api.queryDb(req.body)
+        let result = await twitch_api.queryDb(req.body)
         console.log("-------------JSON.stringify(result)-----------")
+        console.log("result:")
+        console.log(result)
+        console.log("----------------------------------------------")
+        console.log("JSON.stringify(result):")
         console.log(JSON.stringify(result))
-        console.log("--------------------------------")
-        res.status(200).json({ status: 200, "data": [JSON.stringify(result)] });
+        console.log("----------------------------------------------")
+        if (result.status == "ok") {
+            res.status(200).json({ status: 200, "data": [JSON.stringify(result)] });
+        } else {
+            res.status(500).json({ status: 500, "data": null });
+        }
     }
 });
 
