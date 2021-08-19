@@ -17,6 +17,7 @@ const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
 const client = new MongoClient(MONGO_DB_CONNECTION_URL);
 async function queryOneDb(query) {
 	console.log("------------queryOneDb--------------")
+	console.log("query:")
 	console.log(query)
 	console.log("------------------------------------")
 	let response = "",
@@ -28,13 +29,17 @@ async function queryOneDb(query) {
 		response = await collection.findOne(query);
 	} finally {
 		await client.close();
+		console.log("response:")
+		console.log(response)
+		console.log("------------------------------------")
 		return response;
 	}
 }
 async function queryManyDb(query) {
 	console.log("------------queryManyDb--------------")
+	console.log("query:")
 	console.log(query)
-	console.log("-------------------------------------")
+	console.log("------------------------------------")
 	let response = "",
 		result = "";
 	try {
@@ -44,6 +49,9 @@ async function queryManyDb(query) {
 		response = await collection.findMany(query);
 	} finally {
 		await client.close();
+		console.log("response:")
+		console.log(response)
+		console.log("------------------------------------")
 		return response;
 	}
 }
@@ -58,30 +66,38 @@ async function queryGetAllDb() {
 		response = await collection.find().toArray();
 	} finally {
 		await client.close();
+		console.log("response:")
+		console.log(response)
+		console.log("------------------------------------")
 		return response;
 	}
 }
 
-async function addDb(data) {
+async function addDb(query) {
 	console.log("------------addDb--------------")
-	console.log(data)
-	console.log("-------------------------------")
+	console.log("query:")
+	console.log(query)
+	console.log("------------------------------------")
 	let response = "",
 		result = "";
 	try {
 		await client.connect();
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
-		response = await collection.insertOne(data)
+		response = await collection.insertOne(query)
 	} finally {
 		await client.close();
+		console.log("response:")
+		console.log(response)
+		console.log("------------------------------------")
 		return response;
 	}
 }
 
-async function deleteDb(data) {
+async function deleteDb(query) {
 	console.log("------------deleteDb--------------")
-	console.log(data)
+	console.log("query:")
+	console.log(query)
 	console.log("----------------------------------")
 	let response = "",
 		result = "";
@@ -89,30 +105,36 @@ async function deleteDb(data) {
 		await client.connect();
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
-		response = await collection.deleteOne(data)
+		response = await collection.deleteOne(query)
 	} finally {
 		await client.close();
+		console.log("response:")
+		console.log(response)
+		console.log("------------------------------------")
 		return response;
 	}
 }
 
-async function editDb(data) {
+async function editDb(query) {
 	console.log("------------editDb--------------")
-	console.log(data)
-	data[whatever] =
-		console.log("--------------------------------")
+	console.log("query:")
+	console.log(query)
+	console.log("--------------------------------")
 	let response = "",
 		result = "";
 	try {
 		await client.connect();
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
-		response = await collection.updateOne({ twitch_id: data.twitch_id }, data)
+		response = await collection.updateOne({ twitch_id: query.twitch_id }, query)
 		console.log(response)
 		result = await parseDiscordID(response)
 		// response = await collection.updateMany
 	} finally {
 		await client.close();
+		console.log("response:")
+		console.log(response)
+		console.log("------------------------------------")
 		return result;
 	}
 }
