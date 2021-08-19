@@ -104,11 +104,9 @@ async function confirmUserIsMod(userName) {
 
 async function queryDb(params) {
 	const result = await validate_tokens(params, true)
-	console.log(result)
 	if (result.validation_status.success) {
 		let response = {}
 		try {
-			console.log(params.databaseQuery)
 			response = await MONGO_DB.queryAny(params.databaseQuery)
 			response["status"] = "ok"
 		} catch (err) {
