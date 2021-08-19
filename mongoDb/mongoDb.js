@@ -5,7 +5,6 @@
 const { MongoClient } = require("mongodb");
 require('dotenv').config();
 
-
 const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
 
 const client = new MongoClient(MONGO_DB_CONNECTION_URL);
@@ -22,7 +21,7 @@ async function queryAny(query) {
 		}
 		if (query.query == "EDIT") {
 			console.log("------------editDb--------------")
-			response = await collection.updateOne({ twitch_id: query.userData.twitch_id }, { $set: query.userData })
+			response = await collection.updateOne({ twitch_id: query.userData.twitch_id }, query.userData)
 		}
 		if (query.query == "DELETE") {
 			console.log("------------deleteDb--------------")

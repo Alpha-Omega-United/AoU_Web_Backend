@@ -65,12 +65,10 @@ async function validate_tokens(params, dbValidating = false) {
 		if (userResponse) {
 			console.log("------------------------ confirmUserIsMod ------------------------")
 			console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
-			console.log("------------------------------------------------------------------")
 			if (!dbValidating) {
-				// const result = await MONGO_DB.queryGetAllDb()
-				//! TEST AREA
+				console.log("DB is NOT validating")
+				console.log("------------------------------------------------------------------")
 				const result = await MONGO_DB.queryAny({ query: "QUERYGETALL" })
-				//! TEST AREA
 				return { "validation_status": { "success": userResponse }, "data": result }
 			} else {
 				return { "validation_status": { "success": userResponse } }
@@ -106,6 +104,7 @@ async function confirmUserIsMod(userName) {
 
 async function queryDb(params) {
 	const result = await validate_tokens(params, true)
+	console.log(result)
 	if (result.validation_status.success) {
 		let response = {}
 		try {
@@ -123,32 +122,3 @@ async function queryDb(params) {
 
 	}
 }
-
-
-
-
-// a = {
-// 	"client_id": "wbmytr93xzw8zbg0p1izqyzzc5mbiz",
-// 	"login": "twitchdev",
-// 	"scopes": [
-// 		"channel:read:subscriptions"
-// 	],
-// 	"user_id": "141981764",
-// 	"expires_in": 5520838
-// }
-
-
-
-
-
-
-
-// b = {
-// 	_id: new ObjectId("611a98d754868b1e9fde220a"),
-// 	discord_name: 'itsOik#1508',
-// 	discord_id: new Long("123600164433690625"),
-// 	twitch_name: 'itsoik',
-// 	twitch_id: 93645775,
-// 	points: 0,
-// 	isAdmin: true
-// }
