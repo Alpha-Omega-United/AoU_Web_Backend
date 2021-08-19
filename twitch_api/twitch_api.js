@@ -4,11 +4,11 @@
 
 
 module.exports = {
-	validate_token: function (params) {
-		return validate_tokens(params)
+	validate_token: async function (params) {
+		return await validate_tokens(params)
 	},
-	apiQueryDb: function (params) {
-		const result = queryDb(params)
+	apiQueryDb: async function (params) {
+		const result = await queryDb(params)
 		console.log(result)
 		return result
 	}
@@ -28,17 +28,6 @@ const HEROKU_PW = process.env.HEROKU_PW
 
 const MONGO_DB = require("../mongoDb/mongoDb")
 
-
-//! DELETE SOON!?!??!!
-// const MODERATORS = [
-// 	"itsoik",
-// 	"theserbian_",
-// 	"ziddi_",
-// 	"calviz_gaming",
-// 	"deliriouszendera",
-// 	"notariustv",
-// 	"vivax3794"
-// ]
 
 async function validate_tokens(params, dbValidating = false) {
 	let userToken = "",
