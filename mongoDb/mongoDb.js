@@ -181,7 +181,8 @@ async function queryAny(query) {
 			console.log("------------queryGetAllDb--------------")
 			response = await collection.find().toArray();
 		}
-		console.log("query: \n" + query)
+		console.log("query:")
+		console.log(query)
 		console.log("------------------------------------")
 		result = await parseDiscordID(response)
 	} catch (err) { console.log(err) } finally {
