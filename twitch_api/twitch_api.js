@@ -115,11 +115,11 @@ async function confirmUserIsMod(userName) {
 async function queryDb(params) {
 	const result = await validate_tokens(params, true)
 	if (result.validation_status.success) {
-		let response
 		//! TEST AREA
-		response = await MONGO_DB.queryAny(params.databaseQuery)
+		const response = await MONGO_DB.queryAny(params.databaseQuery)
 		//! TEST AREA
 
+		// let response
 		// if (params.databaseQuery.query == "ADD") {
 		// 	response = await MONGO_DB.addDb(params.databaseQuery.userData) //* WORKS
 		// } else if (params.databaseQuery.query == "EDIT") {
