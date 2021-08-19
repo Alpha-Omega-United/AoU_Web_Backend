@@ -61,6 +61,7 @@ async function validate_tokens(params, dbValidating = false) {
 		.catch((err) => console.log(err))
 	let confirmedUserResult = await confirmUserToken(response, userName)
 	if (confirmedUserResult) {
+		console.log(response)
 		let userResponse = await confirmUserIsMod(response.login)
 		if (userResponse) {
 			console.log("------------------------ confirmUserIsMod ------------------------")

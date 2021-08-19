@@ -3,6 +3,7 @@
 // Date: 15/08-2021
 
 const { MongoClient } = require("mongodb");
+var ObjectId = require('mongodb').ObjectId;
 require('dotenv').config();
 
 const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
