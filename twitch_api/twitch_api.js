@@ -27,20 +27,20 @@ const HEROKU_PW = process.env.HEROKU_PW
 const MONGO_DB = require("../mongoDb/mongoDb")
 
 
-const MODERATORS = [
-	"itsoik",
-	"theserbian_",
-	"ziddi_",
-	"calviz_gaming",
-	"deliriouszendera",
-	"notariustv",
-	"vivax3794"
-]
-
-
+//! DELETE SOON!?!??!!
+// const MODERATORS = [
+// 	"itsoik",
+// 	"theserbian_",
+// 	"ziddi_",
+// 	"calviz_gaming",
+// 	"deliriouszendera",
+// 	"notariustv",
+// 	"vivax3794"
+// ]
 
 async function validate_tokens(params, dbValidating = false) {
-	let userToken, userName;
+	let userToken = "",
+		userName = "";
 	try {
 		if (dbValidating) {
 			userToken = params.userToken;
@@ -78,7 +78,7 @@ async function validate_tokens(params, dbValidating = false) {
 				const result = await MONGO_DB.queryGetAllDb()
 				return { "validation_status": { "success": userResponse }, "data": result }
 			} else {
-				return { "validation_status": { "success": userResponse }}
+				return { "validation_status": { "success": userResponse } }
 			}
 		} else {
 			return { "validation_status": { "success": userResponse, "reason": "invalid user" } }
