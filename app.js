@@ -23,7 +23,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/twitch_auth", async (req, res) => {
-    result = await twitch_api.validate_token(req)
+    console.log("/twitch_auth")
+    let result = await twitch_api.validate_token(req)
     console.log("result - app.js")
     console.log(result)
     if (result.validation_status.success) {
