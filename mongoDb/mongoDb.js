@@ -198,39 +198,32 @@ async function queryAny(query) {
 //! TEST AREA
 
 
-
-
-
-
-
-
-
-
-
 async function parseDiscordID(memberArray) {
 	const tempArray = []
 	if (Array.isArray(memberArray)) {
+		console.log("is array")
 		for (user of memberArray) {
-			const tempUser = {}
+			const tempUserObject1 = {}
 			for (const [key, value] of Object.entries(user)) {
 				if (key == "discord_id") {
-					tempUser[key] = parseInt(value)
+					tempUserObject1[key] = parseInt(value)
 				} else {
-					tempUser[key] = value
+					tempUserObject1[key] = value
 				}
 			}
-			tempArray.push(tempUser)
+			tempArray.push(tempUserObject1)
 		}
-	} else if (typeof userList === "object") {
-		const tempUser = {}
+	} else if (typeof memberArray === "object") {
+		console.log("is object")
+		const tempUserObject2 = {}
 		for (const [key, value] of Object.entries(user)) {
 			if (key == "discord_id") {
-				tempUser[key] = parseInt(value)
+				tempUserObject2[key] = parseInt(value)
 			} else {
-				tempUser[key] = value
+				tempUserObject2[key] = value
 			}
 		}
-		tempArray.push(tempUser)
+		tempArray.push(tempUserObject2)
 	}
 	return tempArray
 }

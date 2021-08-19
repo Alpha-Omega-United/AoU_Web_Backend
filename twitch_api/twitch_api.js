@@ -120,11 +120,6 @@ async function queryDb(params) {
 		response = await MONGO_DB.queryAny(params.databaseQuery)
 		//! TEST AREA
 
-
-
-
-
-
 		// if (params.databaseQuery.query == "ADD") {
 		// 	response = await MONGO_DB.addDb(params.databaseQuery.userData) //* WORKS
 		// } else if (params.databaseQuery.query == "EDIT") {
