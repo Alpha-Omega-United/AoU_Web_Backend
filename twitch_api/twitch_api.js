@@ -90,7 +90,11 @@ async function confirmUserToken(data, user) {
 
 
 async function confirmUserIsMod(userName) {
-	let query = { query: "QUERYONE", twitch_name: userName.toLowerCase() };
+	let query = {
+		query: "QUERYONE", userData: {
+			twitch_name: userName.toLowerCase()
+		}
+	};
 	// let result = await MONGO_DB.queryOneDb(query)
 	// 	.catch((err) => console.log(err))
 	let result = await MONGO_DB.queryAny(query)
