@@ -159,32 +159,32 @@ async function queryAny(query) {
 		const collection = database.collection('members');
 		if (query.query == "ADD") {
 			console.log("------------addDb--------------")
-			response = await collection.findOne(query).userData;
+			response = await collection.insertOne(query.userData)
 		}
 		if (query.query == "EDIT") {
 			console.log("------------editDb--------------")
-			response = await collection.findMany(query).userData;
+			response = await collection.updateOne({ twitch_id: query.userData.twitch_id }, query)
 		}
 		if (query.query == "DELETE") {
 			console.log("------------deleteDb--------------")
-			response = await collection.find().toArray();
+			response = await collection.deleteOne(query.userData)
 		}
 		if (query.query == "QUERYONE") {
 			console.log("------------queryOneDb--------------")
-			response = await collection.insertOne(query.userData)
+			response = await collection.findOne(query).userData;
 		}
 		if (query.query == "QUERYMANY") {
 			console.log("------------queryManyDb--------------")
-			response = await collection.deleteOne(query.userData)
+			response = await collection.findMany(query).userData;
 		}
 		if (query.query == "QUERYGETALL") {
 			console.log("------------queryGetAllDb--------------")
-			response = await collection.updateOne({ twitch_id: query.userData.twitch_id }, query)
+			response = await collection.find().toArray();
 		}
 		console.log("query: \n" + query)
 		console.log("------------------------------------")
 		result = await parseDiscordID(response)
-	} finally {
+	} catch (err) { console.log(err) } finally {
 		await client.close();
 		console.log("result:")
 		console.log(result)
@@ -216,7 +216,7 @@ async function parseDiscordID(memberArray) {
 	} else if (typeof memberArray === "object") {
 		console.log("is object")
 		const tempUserObject2 = {}
-		for (const [key, value] of Object.entries(user)) {
+		for (const [key, value] of Object.entries(memberArray)) {
 			if (key == "discord_id") {
 				tempUserObject2[key] = parseInt(value)
 			} else {
