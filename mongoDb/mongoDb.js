@@ -60,6 +60,7 @@ async function queryAny(query) {
 }
 
 
+
 async function parseDiscordID(memberArray) {
 	const tempArray = []
 	if (Array.isArray(memberArray)) {
