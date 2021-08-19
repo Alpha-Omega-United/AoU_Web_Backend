@@ -48,7 +48,7 @@ app.post("/database", async (req, res) => {
         console.log("-------------req.body-----------")
         console.log(req.body)
         console.log("--------------------------------")
-        let result = await twitch_api.queryDb(req.body)
+        let result = await twitch_api.apiQueryDb(req.body)
         console.log("-------------JSON.stringify(result)-----------")
         console.log("result:")
         console.log(result)
