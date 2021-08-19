@@ -55,9 +55,12 @@ app.post("/database", async (req, res) => {
         console.log("JSON.stringify(result):")
         console.log(JSON.stringify(result))
         console.log("----------------------------------------------")
-        if (result.status == "ok") {
-            res.status(200).json({ status: 200, "data": [JSON.stringify(result)] });
-        } else {
+        try {
+            if (result.status == "ok") {
+                res.status(200).json({ status: 200, "data": [JSON.stringify(result)] });
+            }
+        } catch (err) {
+            console.log(err)
             res.status(500).json({ status: 500, "data": null });
         }
     }
