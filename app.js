@@ -49,7 +49,8 @@ app.post("/database", async (req, res) => {
         console.log(req.body)
         console.log("--------------------------------")
         if (req.body.userName == "" || req.body.userToken == null) {
-            res.status(400).json({ status: 400, "data": null });
+            res.status(401).json({ status: 401, "data": null });
+            return
         }
         let result = await twitch_api.queryDb(req.body)
         // console.log("-------------app.js result-----------")
