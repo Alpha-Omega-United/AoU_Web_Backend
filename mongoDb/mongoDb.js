@@ -163,7 +163,7 @@ async function queryAny(query) {
 		}
 		if (query.query == "EDIT") {
 			console.log("------------editDb--------------")
-			response = await collection.updateOne({ twitch_id: query.userData.twitch_id }, query)
+			response = await collection.updateOne({ twitch_id: query.userData.twitch_id }, query.userData)
 		}
 		if (query.query == "DELETE") {
 			console.log("------------deleteDb--------------")
@@ -171,11 +171,11 @@ async function queryAny(query) {
 		}
 		if (query.query == "QUERYONE") {
 			console.log("------------queryOneDb--------------")
-			response = await collection.findOne(query).userData;
+			response = await collection.findOne(query.userData);
 		}
 		if (query.query == "QUERYMANY") {
 			console.log("------------queryManyDb--------------")
-			response = await collection.findMany(query).userData;
+			response = await collection.findMany(query.userData);
 		}
 		if (query.query == "QUERYGETALL") {
 			console.log("------------queryGetAllDb--------------")
@@ -185,7 +185,9 @@ async function queryAny(query) {
 		console.log(query)
 		console.log("------------------------------------")
 		result = await parseDiscordID(response)
-	} catch (err) { console.log(err) } finally {
+	} catch (err) {
+		console.log(err)
+	} finally {
 		await client.close();
 		console.log("result:")
 		console.log(result)
