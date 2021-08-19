@@ -29,9 +29,11 @@ async function queryAny(query) {
 		}
 		if (query.query == "QUERYONE") {
 			console.log("------------queryOneDb--------------")
-			if ("twitch_id" in query.userData) {
+			if ("twitch_name" in query.userData) {
+				console.log("twitch name")
 				response = await collection.findOne({ "twitch_name": query.userData.twitch_name });
 			} else if ("_id" in query.userData) {
+				console.log("_id")
 				response = await collection.findOne({ "_id": new ObjectId(query.userData._id) });
 			}
 		}
