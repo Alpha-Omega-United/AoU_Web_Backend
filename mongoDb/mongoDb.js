@@ -28,7 +28,7 @@ async function queryOneDb(query) {
 		response = await collection.findOne(query);
 	} finally {
 		await client.close();
-		return result;
+		return response;
 	}
 }
 async function queryManyDb(query) {
@@ -44,7 +44,7 @@ async function queryManyDb(query) {
 		response = await collection.findMany(query);
 	} finally {
 		await client.close();
-		return result;
+		return response;
 	}
 }
 async function queryGetAllDb() {
@@ -58,7 +58,7 @@ async function queryGetAllDb() {
 		response = await collection.find().toArray();
 	} finally {
 		await client.close();
-		return result;
+		return response;
 	}
 }
 
@@ -75,7 +75,7 @@ async function addDb(data) {
 		response = await collection.insertOne(data)
 	} finally {
 		await client.close();
-		return result;
+		return response;
 	}
 }
 
@@ -92,7 +92,7 @@ async function deleteDb(data) {
 		response = await collection.deleteOne(data)
 	} finally {
 		await client.close();
-		return result;
+		return response;
 	}
 }
 
@@ -108,6 +108,7 @@ async function editDb(data) {
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
 		response = await collection.updateOne({ twitch_id: data.twitch_id }, data)
+		console.log(response)
 		result = await parseDiscordID(response)
 		// response = await collection.updateMany
 	} finally {
