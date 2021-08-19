@@ -108,6 +108,7 @@ async function queryDb(params) {
 	if (result.validation_status.success) {
 		let response = {}
 		try {
+			console.log(params.databaseQuery)
 			response = await MONGO_DB.queryAny(params.databaseQuery)
 			response["status"] = "ok"
 		} catch (err) {
