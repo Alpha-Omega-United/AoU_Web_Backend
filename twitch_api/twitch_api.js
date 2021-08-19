@@ -115,9 +115,9 @@ async function queryDb(params) {
 			console.log(err)
 			response = { status: "error" }
 		} finally {
-			console.log("-----------TWITCH_API.js-----------")
-			console.log(response)
-			console.log("-----------------------------------")
+			// console.log("-----------TWITCH_API.js-----------")
+			// console.log(response)
+			// console.log("-----------------------------------")
 			return response
 		}
 

@@ -49,12 +49,9 @@ app.post("/database", async (req, res) => {
         console.log(req.body)
         console.log("--------------------------------")
         let result = await twitch_api.queryDb(req.body)
-        console.log("-------------JSON.stringify(result)-----------")
+        console.log("-------------app.js result-----------")
         console.log("result:")
         console.log(result)
-        console.log("----------------------------------------------")
-        console.log("JSON.stringify(result):")
-        console.log(JSON.stringify(result))
         console.log("----------------------------------------------")
         try {
             if (result.status == "ok") {
@@ -66,7 +63,6 @@ app.post("/database", async (req, res) => {
         }
     }
 });
-
 
 
 
