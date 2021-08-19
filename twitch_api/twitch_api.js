@@ -95,11 +95,11 @@ async function confirmUserIsMod(userName) {
 	let query = { query: "QUERYONE", twitch_name: userName.toLowerCase() };
 	// let result = await MONGO_DB.queryOneDb(query)
 	// 	.catch((err) => console.log(err))
-	//! TEST AREA
 	let result = await MONGO_DB.queryAny(query)
 		.catch((err) => console.log(err))
-	//! TEST AREA
-	return result.isAdmin
+	if (result[0].twitch_name == userName) {
+		return result[0].isAdmin
+	}
 }
 
 
