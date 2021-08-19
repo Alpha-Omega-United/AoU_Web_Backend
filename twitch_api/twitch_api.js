@@ -116,7 +116,7 @@ async function queryDb(params) {
 	const result = await validate_tokens(params, true)
 	if (result.validation_status.success) {
 		//! TEST AREA
-		let response
+		let response = {}
 		try {
 			response = await MONGO_DB.queryAny(params.databaseQuery)
 			response["status"] = "ok"

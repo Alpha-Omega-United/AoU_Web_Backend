@@ -192,9 +192,8 @@ async function queryAny(query) {
 		console.log("result:")
 		console.log(result)
 		console.log("------------------------------------")
-		return result;
 	}
-
+	return result;
 }
 
 
