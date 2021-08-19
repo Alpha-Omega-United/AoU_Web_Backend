@@ -15,135 +15,213 @@ const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL
 
 
 const client = new MongoClient(MONGO_DB_CONNECTION_URL);
-async function queryOneDb(query) {
-	console.log("------------queryOneDb--------------")
-	console.log("query:")
-	console.log(query)
-	console.log("------------------------------------")
-	let response = "",
-		result = "";
-	try {
-		await client.connect();
-		const database = client.db('aou_member_list');
-		const collection = database.collection('members');
-		response = await collection.findOne(query);
-	} finally {
-		await client.close();
-		console.log("response:")
-		console.log(response)
-		console.log("------------------------------------")
-		return response;
-	}
-}
-async function queryManyDb(query) {
-	console.log("------------queryManyDb--------------")
-	console.log("query:")
-	console.log(query)
-	console.log("------------------------------------")
-	let response = "",
-		result = "";
-	try {
-		await client.connect();
-		const database = client.db('aou_member_list');
-		const collection = database.collection('members');
-		response = await collection.findMany(query);
-	} finally {
-		await client.close();
-		console.log("response:")
-		console.log(response)
-		console.log("------------------------------------")
-		return response;
-	}
-}
-async function queryGetAllDb() {
-	console.log("------------queryGetAllDb--------------")
-	let response = "",
-		result = "";
-	try {
-		await client.connect();
-		const database = client.db('aou_member_list');
-		const collection = database.collection('members');
-		response = await collection.find().toArray();
-	} finally {
-		await client.close();
-		console.log("response:")
-		console.log(response)
-		console.log("------------------------------------")
-		return response;
-	}
-}
+// async function queryOneDb(query) {
+// 	console.log("------------queryOneDb--------------")
+// 	console.log("query:")
+// 	console.log(query)
+// 	console.log("------------------------------------")
+// 	let response = "",
+// 		result = "";
+// 	try {
+// 		await client.connect();
+// 		const database = client.db('aou_member_list');
+// 		const collection = database.collection('members');
+// 		response = await collection.findOne(query);
+// 		console.log(response)
+// 		result = await parseDiscordID(response)
+// 	} finally {
+// 		await client.close();
+// 		console.log("result:")
+// 		console.log(result)
+// 		console.log("------------------------------------")
+// 		return result;
+// 	}
+// }
+// async function queryManyDb(query) {
+// 	console.log("------------queryManyDb--------------")
+// 	console.log("query:")
+// 	console.log(query)
+// 	console.log("------------------------------------")
+// 	let response = "",
+// 		result = "";
+// 	try {
+// 		await client.connect();
+// 		const database = client.db('aou_member_list');
+// 		const collection = database.collection('members');
+// 		response = await collection.findMany(query);
+// 		console.log(response)
+// 		result = await parseDiscordID(response)
+// 	} finally {
+// 		await client.close();
+// 		console.log("result:")
+// 		console.log(result)
+// 		console.log("------------------------------------")
+// 		return result;
+// 	}
+// }
+// async function queryGetAllDb() {
+// 	console.log("------------queryGetAllDb--------------")
+// 	let response = "",
+// 		result = "";
+// 	try {
+// 		await client.connect();
+// 		const database = client.db('aou_member_list');
+// 		const collection = database.collection('members');
+// 		response = await collection.find().toArray();
+// 		console.log(response)
+// 		result = await parseDiscordID(response)
+// 	} finally {
+// 		await client.close();
+// 		console.log("result:")
+// 		console.log(result)
+// 		console.log("------------------------------------")
+// 		return result;
+// 	}
+// }
 
-async function addDb(query) {
-	console.log("------------addDb--------------")
-	console.log("query:")
-	console.log(query)
-	console.log("------------------------------------")
-	let response = "",
-		result = "";
-	try {
-		await client.connect();
-		const database = client.db('aou_member_list');
-		const collection = database.collection('members');
-		response = await collection.insertOne(query)
-	} finally {
-		await client.close();
-		console.log("response:")
-		console.log(response)
-		console.log("------------------------------------")
-		return response;
-	}
-}
+// async function addDb(query) {
+// 	console.log("------------addDb--------------")
+// 	console.log("query:")
+// 	console.log(query)
+// 	console.log("------------------------------------")
+// 	let response = "",
+// 		result = "";
+// 	try {
+// 		await client.connect();
+// 		const database = client.db('aou_member_list');
+// 		const collection = database.collection('members');
+// 		response = await collection.insertOne(query)
+// 		console.log(response)
+// 		result = await parseDiscordID(response)
+// 	} finally {
+// 		await client.close();
+// 		console.log("result:")
+// 		console.log(result)
+// 		console.log("------------------------------------")
+// 		return result;
+// 	}
+// }
 
-async function deleteDb(query) {
-	console.log("------------deleteDb--------------")
-	console.log("query:")
-	console.log(query)
-	console.log("----------------------------------")
-	let response = "",
-		result = "";
-	try {
-		await client.connect();
-		const database = client.db('aou_member_list');
-		const collection = database.collection('members');
-		response = await collection.deleteOne(query)
-	} finally {
-		await client.close();
-		console.log("response:")
-		console.log(response)
-		console.log("------------------------------------")
-		return response;
-	}
-}
+// async function deleteDb(query) {
+// 	console.log("------------deleteDb--------------")
+// 	console.log("query:")
+// 	console.log(query)
+// 	console.log("----------------------------------")
+// 	let response = "",
+// 		result = "";
+// 	try {
+// 		await client.connect();
+// 		const database = client.db('aou_member_list');
+// 		const collection = database.collection('members');
+// 		response = await collection.deleteOne(query)
+// 		console.log(response)
+// 		result = await parseDiscordID(response)
+// 	} finally {
+// 		await client.close();
+// 		console.log("result:")
+// 		console.log(result)
+// 		console.log("------------------------------------")
+// 		return result;
+// 	}
+// }
 
-async function editDb(query) {
-	console.log("------------editDb--------------")
-	console.log("query:")
-	console.log(query)
-	console.log("--------------------------------")
+// async function editDb(query) {
+// 	console.log("------------editDb--------------")
+// 	console.log("query:")
+// 	console.log(query)
+// 	console.log("--------------------------------")
+// 	let response = "",
+// 		result = "";
+// 	try {
+// 		await client.connect();
+// 		const database = client.db('aou_member_list');
+// 		const collection = database.collection('members');
+// 		response = await collection.updateOne({ twitch_id: query.twitch_id }, query)
+// 		console.log(response)
+// 		result = await parseDiscordID(response)
+// 	} finally {
+// 		await client.close();
+// 		console.log("result:")
+// 		console.log(result)
+// 		console.log("------------------------------------")
+// 		return result;
+// 	}
+// }
+
+
+//! TEST AREA
+async function queryAny(query) {
 	let response = "",
 		result = "";
 	try {
 		await client.connect();
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
-		response = await collection.updateOne({ twitch_id: query.twitch_id }, query)
-		console.log(response)
+		if (query.query == "ADD") {
+			console.log("------------addDb--------------")
+			response = await collection.findOne(query).userData;
+		}
+		if (query.query == "EDIT") {
+			console.log("------------editDb--------------")
+			response = await collection.findMany(query).userData;
+		}
+		if (query.query == "DELETE") {
+			console.log("------------deleteDb--------------")
+			response = await collection.find().toArray();
+		}
+		if (query.query == "QUERYONE") {
+			console.log("------------queryOneDb--------------")
+			response = await collection.insertOne(query.userData)
+		}
+		if (query.query == "QUERYMANY") {
+			console.log("------------queryManyDb--------------")
+			response = await collection.deleteOne(query.userData)
+		}
+		if (query.query == "QUERYGETALL") {
+			console.log("------------queryGetAllDb--------------")
+			response = await collection.updateOne({ twitch_id: query.userData.twitch_id }, query)
+		}
+		console.log("query: \n" + query)
+		console.log("------------------------------------")
 		result = await parseDiscordID(response)
-		// response = await collection.updateMany
 	} finally {
 		await client.close();
-		console.log("response:")
-		console.log(response)
+		console.log("result:")
+		console.log(result)
 		console.log("------------------------------------")
 		return result;
 	}
+
 }
+
+
+//! TEST AREA
+
+
+
+
+
+
+
+
 
 
 
 async function parseDiscordID(memberArray) {
 	const tempArray = []
-	for (user of memberArray) {
+	if (Array.isArray(memberArray)) {
+		for (user of memberArray) {
+			const tempUser = {}
+			for (const [key, value] of Object.entries(user)) {
+				if (key == "discord_id") {
+					tempUser[key] = parseInt(value)
+				} else {
+					tempUser[key] = value
+				}
+			}
+			tempArray.push(tempUser)
+		}
+	} else if (typeof userList === "object") {
 		const tempUser = {}
 		for (const [key, value] of Object.entries(user)) {
 			if (key == "discord_id") {
@@ -159,7 +237,12 @@ async function parseDiscordID(memberArray) {
 
 
 
-module.exports = { queryOneDb, queryManyDb, queryGetAllDb, addDb, deleteDb, editDb }
+
+
+
+
+// module.exports = { queryOneDb, queryManyDb, queryGetAllDb, addDb, deleteDb, editDb, queryAny }
+module.exports = { queryAny }
 
 
 
