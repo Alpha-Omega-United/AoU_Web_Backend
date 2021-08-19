@@ -75,7 +75,10 @@ async function validate_tokens(params, dbValidating = false) {
 			console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
 			console.log("------------------------------------------------------------------")
 			if (!dbValidating) {
-				const result = await MONGO_DB.queryGetAllDb()
+				// const result = await MONGO_DB.queryGetAllDb()
+				//! TEST AREA
+				const result = await MONGO_DB.queryAny({ query: "QUERYGETALL" })
+				//! TEST AREA
 				return { "validation_status": { "success": userResponse }, "data": result }
 			} else {
 				return { "validation_status": { "success": userResponse } }
@@ -97,9 +100,13 @@ async function confirmUserToken(data, user) {
 
 
 async function confirmUserIsMod(userName) {
-	let query = { twitch_name: userName.toLowerCase() };
-	let result = await MONGO_DB.queryOneDb(query)
+	let query = { query: "QUERYONE", twitch_name: userName.toLowerCase() };
+	// let result = await MONGO_DB.queryOneDb(query)
+	// 	.catch((err) => console.log(err))
+	//! TEST AREA
+	let result = await MONGO_DB.queryAny(query)
 		.catch((err) => console.log(err))
+	//! TEST AREA
 	return result.isAdmin
 }
 
