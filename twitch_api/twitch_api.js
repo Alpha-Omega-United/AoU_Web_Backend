@@ -107,7 +107,6 @@ async function confirmUserIsMod(userName) {
 async function queryDb(params) {
 	const result = await validate_tokens(params, true)
 	if (result.validation_status.success) {
-		//! TEST AREA
 		let response = {}
 		try {
 			response = await MONGO_DB.queryAny(params.databaseQuery)
@@ -121,25 +120,7 @@ async function queryDb(params) {
 			console.log("-----------------------------------")
 			return response
 		}
-		//! TEST AREA
 
-		// if (params.databaseQuery.query == "ADD") {
-		// 	response = await MONGO_DB.addDb(params.databaseQuery.userData) //* WORKS
-		// } else if (params.databaseQuery.query == "EDIT") {
-		// 	response = await MONGO_DB.editDb(params.databaseQuery.userData) // TODO REQUIRES TESTING
-		// 	// } else if (params.databaseQuery.query == "DELETE") { //! DISABLED WHILE TESTING
-		// 	// 	response = await MONGO_DB.deleteDb(params.databaseQuery.userData) //! DISABLED WHILE TESTING
-		// } else if (params.databaseQuery.query == "QUERYONE") {
-		// 	response = await MONGO_DB.queryOneDb(params.databaseQuery.userData) // TODO REQUIRES TESTING
-		// } else if (params.databaseQuery.query == "QUERYMANY") {
-		// 	response = await MONGO_DB.queryManyDb(params.databaseQuery.userData) // TODO REQUIRES TESTING
-		// } else if (params.databaseQuery.query == "QUERYGETALL") {
-		// 	response = await MONGO_DB.queryGetAllDb() // TODO REQUIRES TESTING
-		// };
-		// console.log("-----------TWITCH_API.js-----------")
-		// console.log(response)
-		// console.log("-----------------------------------")
-		// return response
 	}
 }
 
