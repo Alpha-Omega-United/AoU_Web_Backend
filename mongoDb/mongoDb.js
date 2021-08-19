@@ -22,7 +22,7 @@ async function queryAny(query) {
 		}
 		if (query.query == "EDIT") {
 			console.log("------------editDb--------------")
-			response = await collection.updateOne({ twitch_id: query.userData.twitch_id }, query.userData)
+			response = await collection.updateOne({ twitch_id: query.userData.twitch_id }, { $set: query.userData })
 		}
 		if (query.query == "DELETE") {
 			console.log("------------deleteDb--------------")
