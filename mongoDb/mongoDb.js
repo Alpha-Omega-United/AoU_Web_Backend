@@ -26,15 +26,13 @@ async function queryAny(query) {
 		}
 		if (query.query == "DELETE") {
 			console.log("------------deleteDb--------------")
-			response = await collection.deleteOne(query.userData)
+			response = await collection.deleteOne({ "_id": new ObjectId(query.userData._id) })
 		}
 		if (query.query == "QUERYONE") {
 			console.log("------------queryOneDb--------------")
 			if ("twitch_name" in query.userData) {
-				console.log("twitch name")
 				response = await collection.findOne({ "twitch_name": query.userData.twitch_name });
 			} else if ("_id" in query.userData) {
-				console.log("_id")
 				response = await collection.findOne({ "_id": new ObjectId(query.userData._id) });
 			}
 		}
@@ -65,7 +63,6 @@ async function queryAny(query) {
 async function parseDiscordID(memberArray) {
 	const tempArray = []
 	if (Array.isArray(memberArray)) {
-		console.log("is array")
 		for (user of memberArray) {
 			const tempUserObject1 = {}
 			for (const [key, value] of Object.entries(user)) {
@@ -78,7 +75,6 @@ async function parseDiscordID(memberArray) {
 			tempArray.push(tempUserObject1)
 		}
 	} else if (typeof memberArray === "object") {
-		console.log("is object")
 		const tempUserObject2 = {}
 		for (const [key, value] of Object.entries(memberArray)) {
 			if (key == "discord_id") {
