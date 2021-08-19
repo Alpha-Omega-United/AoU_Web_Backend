@@ -49,7 +49,8 @@ app.post("/database", async (req, res) => {
         console.log("--------------------------------")
         const result = await twitch_api.queryDb(req.body)
         console.log(JSON.stringify(result))
-        console.log(result[0].discord_id)
+        let test = result[0].discord_id
+        console.log(test)
         res.status(200).json({ status: 200, "data": [JSON.stringify(result)] });
     }
 });
