@@ -4,17 +4,6 @@
 
 module.exports = { queryDb, validate_tokens }
 
-// module.exports = {
-// 	validate_token: async function (params) {
-// 		return await validate_tokens(params)
-// 	},
-// 	apiQueryDb: async function (params) {
-// 		const result = await queryDb(params)
-// 		console.log(result)
-// 		return result
-// 	}
-// };
-
 
 require('dotenv').config();
 const { response } = require('express');
