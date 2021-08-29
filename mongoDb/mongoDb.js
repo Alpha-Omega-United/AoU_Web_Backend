@@ -16,37 +16,31 @@ async function queryAny(query) {
 		await client.connect();
 		const database = client.db('aou_member_list');
 		const collection = database.collection('members');
+		console.log(`------------${query.query}--------------`)
+		console.log("query:")
+		console.log(query)
+		console.log("------------------------------------")
 		if (query.query == "ADD") {
-			console.log("------------addDb--------------")
 			response = await collection.insertOne(query.userData)
 		}
 		if (query.query == "EDIT") {
-			console.log("------------editDb--------------")
-			//TODO not properly updating user
-
 			const dataToSet = {}
-			console.log("----forLoop----")
 			for (const [key, value] of Object.entries(query.userData)) {
 				if (key != "_id") {
 					if (value != null) {
-						console.log(key)
-						console.log(value)
 						dataToSet[key] = value
 					}
 				}
 			}
-
 			console.log("----dataToSet----")
 			console.log(dataToSet)
 			console.log("-----------------")
 			response = await collection.updateOne({ "_id": new ObjectId(query.userData._id) }, { $set: dataToSet })
 		}
 		if (query.query == "DELETE") {
-			console.log("------------deleteDb--------------")
 			response = await collection.deleteOne({ "_id": new ObjectId(query.userData._id) })
 		}
 		if (query.query == "QUERYONE") {
-			console.log("------------queryOneDb--------------")
 			if ("twitch_name" in query.userData) {
 				response = await collection.findOne({ "twitch_name": query.userData.twitch_name });
 			} else if ("_id" in query.userData) {
@@ -54,16 +48,12 @@ async function queryAny(query) {
 			}
 		}
 		if (query.query == "QUERYMANY") {
-			console.log("------------queryManyDb--------------")
 			response = await collection.findMany(query.userData);
 		}
 		if (query.query == "QUERYGETALL") {
-			console.log("------------queryGetAllDb--------------")
 			response = await collection.find().toArray();
 		}
-		console.log("query:")
-		console.log(query)
-		console.log("------------------------------------")
+
 		result = await parseDiscordID(response)
 	} catch (err) {
 		console.log(err)
