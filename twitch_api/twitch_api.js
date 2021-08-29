@@ -85,8 +85,6 @@ async function confirmUserIsMod(userName) {
 			twitch_name: userName.toLowerCase()
 		}
 	};
-	// let result = await MONGO_DB.queryOneDb(query)
-	// 	.catch((err) => console.log(err))
 	let result = await MONGO_DB.queryAny(query)
 		.catch((err) => console.log(err))
 	if (result && result[0].twitch_name == userName) {
@@ -105,7 +103,7 @@ async function queryDb(params) {
 			response["status"] = "ok"
 		} catch (err) {
 			console.log(err)
-			response = { status: "error" }
+			response["status"] = "error"
 		} finally {
 			// console.log("-----------TWITCH_API.js-----------")
 			// console.log(response)
