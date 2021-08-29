@@ -25,28 +25,16 @@ async function queryAny(query) {
 			//TODO not properly updating user
 
 			const dataToSet = {}
+			console.log("----forLoop----")
 			for (const [key, value] of Object.entries(query.userData)) {
-				if (value != "" || value != null) {
-					console.log(key)
-					console.log(value)
-					dataToSet[key] = value
+				if (key != "_id") {
+					if (value != null) {
+						console.log(key)
+						console.log(value)
+						dataToSet[key] = value
+					}
 				}
 			}
-
-
-			a = {
-				twitch_name: 'oik_does_python',
-				twitch_id: null,
-				discord_name: '1231231',
-				discord_id: null,
-				points: 40,
-				stream: null
-			}
-
-
-
-
-
 
 			console.log("----dataToSet----")
 			console.log(dataToSet)
