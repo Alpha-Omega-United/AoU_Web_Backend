@@ -24,26 +24,15 @@ async function queryAny(query) {
 			console.log("------------editDb--------------")
 			//TODO not properly updating user
 
-
-			// query = {
-			// 	query: 'EDIT',
-			// 	userData: {
-			// 		twitch_name: 'oik_does_python',
-			// 		twitch_id: null,
-			// 		discord_name: '123',
-			// 		discord_id: null,
-			// 		points: 20,
-			// 		stream: null
-			// 	}
-			// }
-
 			const dataToSet = {}
 			for (const [key, value] of Object.entries(query.userData)) {
-				if (value || value != "") {
+				if (value || value != "" || value != null) {
 					dataToSet[key] = value
 				}
 			}
+			console.log("----dataToSet----")
 			console.log(dataToSet)
+			console.log("-----------------")
 			response = await collection.updateOne({ "_id": new ObjectId(query.userData._id) }, { $set: dataToSet })
 		}
 		if (query.query == "DELETE") {
@@ -75,7 +64,7 @@ async function queryAny(query) {
 	} finally {
 		await client.close();
 		console.log("result:")
-		console.log(result)
+		console.log((query.query == "QUERYGETALL" ? result.len : result))
 		console.log("------------------------------------")
 	}
 	return result;
