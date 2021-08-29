@@ -45,8 +45,8 @@ app.post("/database", async (req, res) => {
     } else {
         console.log("-------------req.body-----------")
         console.log(req.body)
-        console.log("-------------req.headers-----------")
-        console.log(req.headers)
+        // console.log("-------------req.headers-----------")
+        // console.log(req.headers)
         console.log("--------------------------------")
         if (req.body.userName == "" || req.body.userToken == null) {
             res.status(401).json({ status: 401, "data": null });

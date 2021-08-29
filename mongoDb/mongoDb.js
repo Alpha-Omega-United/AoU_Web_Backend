@@ -22,7 +22,29 @@ async function queryAny(query) {
 		}
 		if (query.query == "EDIT") {
 			console.log("------------editDb--------------")
-			response = await collection.updateOne({ "_id": new ObjectId(query.userData._id) }, { $set: query.userData })
+			//TODO not properly updating user
+
+
+			// query = {
+			// 	query: 'EDIT',
+			// 	userData: {
+			// 		twitch_name: 'oik_does_python',
+			// 		twitch_id: null,
+			// 		discord_name: '123',
+			// 		discord_id: null,
+			// 		points: 20,
+			// 		stream: null
+			// 	}
+			// }
+
+			const dataToSet = {}
+			for (const [key, value] of Object.entries(query.userData)) {
+				if (value || value != "") {
+					dataToSet[key] = value
+				}
+			}
+			console.log(dataToSet)
+			response = await collection.updateOne({ "_id": new ObjectId(query.userData._id) }, { $set: dataToSet })
 		}
 		if (query.query == "DELETE") {
 			console.log("------------deleteDb--------------")
