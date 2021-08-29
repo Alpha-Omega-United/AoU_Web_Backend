@@ -110,6 +110,7 @@ async function queryDb(params) {
 			// console.log("-----------------------------------")
 			return response
 		}
-
+	} else {
+		return { "status": "error???????????" }
 	}
 }
