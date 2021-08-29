@@ -53,7 +53,6 @@ async function queryAny(query) {
 		if (query.query == "QUERYGETALL") {
 			response = await collection.find().toArray();
 		}
-
 		result = await parseDiscordID(response)
 	} catch (err) {
 		console.log(err)

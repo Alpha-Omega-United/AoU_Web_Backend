@@ -49,9 +49,14 @@ async function validate_tokens(params, dbValidating = false) {
 		})
 		.catch((err) => console.log(err))
 	let confirmedUserResult = await confirmUserToken(response, userName)
+	console.log("confirmedUserResult")
+	console.log(confirmedUserResult)
 	if (confirmedUserResult) {
+		console.log("twitch_api: #55")
 		console.log(response)
 		let userResponse = await confirmUserIsMod(response.login)
+		console.log("userResponse")
+		console.log(response)
 		if (userResponse) {
 			console.log("------------------------ confirmUserIsMod ------------------------")
 			console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
@@ -96,6 +101,7 @@ async function confirmUserIsMod(userName) {
 
 async function queryDb(params) {
 	const result = await validate_tokens(params, true)
+	console.log(result)
 	if (result.validation_status.success) {
 		let response = {}
 		try {
@@ -105,12 +111,12 @@ async function queryDb(params) {
 			console.log(err)
 			response["status"] = "error"
 		} finally {
-			// console.log("-----------TWITCH_API.js-----------")
-			// console.log(response)
-			// console.log("-----------------------------------")
+			console.log("-----------TWITCH_API.js-----------")
+			console.log(response)
+			console.log("-----------------------------------")
 			return response
 		}
 	} else {
-		return { "status": "error???????????" }
+		return { "status": "validation error" }
 	}
 }
