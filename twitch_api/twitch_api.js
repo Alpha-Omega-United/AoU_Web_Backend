@@ -92,7 +92,7 @@ async function confirmUserIsMod(userName) {
 	};
 	let result = await MONGO_DB.queryAny(query)
 		.catch((err) => console.log(err))
-	if (result && result[0].twitch_name == userName) {
+	if (result && result.length > 0 && result[0].twitch_name == userName) {
 		return result[0]
 	}
 }
