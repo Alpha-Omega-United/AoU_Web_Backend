@@ -48,6 +48,7 @@ async function queryAny(query) {
 			}
 		}
 		if (query.query == "QUERYMANY") {
+			console.log(query.userData)
 			response = await collection.find(query.userData);
 		}
 		if (query.query == "QUERYGETALL") {
