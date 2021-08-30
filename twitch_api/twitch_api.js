@@ -101,23 +101,31 @@ async function confirmUserIsMod(userName) {
 
 
 async function queryDb(params) {
-	const result = await validate_tokens(params, true)
-	console.log(result)
-	if (result.validation_status.success) {
-		let response = {}
-		try {
-			response = await MONGO_DB.queryAny(params.databaseQuery)
-			response["status"] = "ok"
-		} catch (err) {
-			console.log(err)
-			response["status"] = "error"
-		} finally {
-			console.log("-----------TWITCH_API.js-----------")
-			console.log(response)
-			console.log("-----------------------------------")
-			return response
-		}
+	if (params.userName == "public" || params.userToken == "public") {
+		const queryRequest = { query: 'QUERYMANY', userData: { "$ne": { "stream": null } } }
+		response = await MONGO_DB.queryAny(queryRequest)
+		console.log("-----------PUBLIC-----------")
+		console.log(response)
+		console.log("----------------------------")
 	} else {
-		return { "status": "validation error" }
+		const result = await validate_tokens(params, true)
+		console.log(result)
+		if (result.validation_status.success) {
+			let response = {}
+			try {
+				response = await MONGO_DB.queryAny(params.databaseQuery)
+				response["status"] = "ok"
+			} catch (err) {
+				console.log(err)
+				response["status"] = "error"
+			} finally {
+				console.log("-----------TWITCH_API.js-----------")
+				console.log(response)
+				console.log("-----------------------------------")
+				return response
+			}
+		} else {
+			return { "status": "validation error" }
+		}
 	}
 }
