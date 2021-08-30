@@ -59,7 +59,7 @@ async function validate_tokens(params, dbValidating = false) {
 		console.log(response)
 		if (userResponse.isAdmin) {
 			console.log("------------------------ confirmUserIsMod ------------------------")
-			console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
+			console.log(`user is mod: ${userResponse.isAdmin}, token expires: ${response.expires_in}`)
 			if (!dbValidating) {
 				console.log("DB is NOT validating")
 				console.log("------------------------------------------------------------------")
@@ -84,7 +84,6 @@ async function confirmUserToken(data, user) {
 	return false
 }
 
-
 async function confirmUserIsMod(userName) {
 	let query = {
 		query: "QUERYONE", userData: {
@@ -97,8 +96,6 @@ async function confirmUserIsMod(userName) {
 		return result[0]
 	}
 }
-
-
 
 async function queryDb(params) {
 	if (params.userName == "public" || params.userToken == "public") {

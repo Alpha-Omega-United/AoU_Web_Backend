@@ -48,7 +48,7 @@ async function queryAny(query) {
 			}
 		}
 		if (query.query == "QUERYMANY") {
-			response = await collection.findMany(query.userData);
+			response = await collection.find(query.userData);
 		}
 		if (query.query == "QUERYGETALL") {
 			response = await collection.find().toArray();
