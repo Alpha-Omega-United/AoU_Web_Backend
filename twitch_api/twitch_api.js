@@ -57,7 +57,7 @@ async function validate_tokens(params, dbValidating = false) {
 		let userResponse = await confirmUserIsMod(response.login)
 		console.log("userResponse")
 		console.log(response)
-		if (userResponse) {
+		if (userResponse.isAdmin) {
 			console.log("------------------------ confirmUserIsMod ------------------------")
 			console.log(`user is mod: ${userResponse}, token expires: ${response.expires_in}`)
 			if (!dbValidating) {
@@ -69,7 +69,8 @@ async function validate_tokens(params, dbValidating = false) {
 				return { "validation_status": { "success": userResponse } }
 			}
 		} else {
-			return { "validation_status": { "success": userResponse, "reason": "invalid user" } }
+			//todo user is not mod, return queryOne
+			return { "validation_status": { "success": true, "data": userResponse, "reason": "user is not mod" } }
 		}
 	} else {
 		return { "validation_status": { "success": false, "reason": "invalid token" } }
@@ -93,7 +94,7 @@ async function confirmUserIsMod(userName) {
 	let result = await MONGO_DB.queryAny(query)
 		.catch((err) => console.log(err))
 	if (result && result[0].twitch_name == userName) {
-		return result[0].isAdmin
+		return result[0]
 	}
 }
 

@@ -57,17 +57,14 @@ app.post("/database", async (req, res) => {
         console.log("result:")
         console.log(result.status)
         console.log("----------------------------------------------")
-        try {
-            if (result.status == "ok") {
-                res.status(200).json({ status: 200, "data": [JSON.stringify(result)] });
-            }
-        } catch (err) {
+        if (result.status == "ok") {
+            res.status(200).json({ status: 200, "data": [JSON.stringify(result)] });
+        } else {
             console.log(err)
             res.status(500).json({ status: 500, "data": null });
         }
     }
 });
-
 
 
 //! ------------------------------------ LISTEN ------------------------------------ //
