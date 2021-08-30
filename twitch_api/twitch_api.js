@@ -103,9 +103,20 @@ async function queryDb(params) {
 		const response = await MONGO_DB.queryAny(queryRequest)
 		console.log("-----------PUBLIC-----------")
 		console.log(response)
-		console.log("----------------------------")
-		response.status = (response.length > 0 ? "ok" : "error, something went wrong or nobody is live")
-		return response
+		console.log("---------------------------")
+		const result = { "data": [] }
+		if (response.length > 0) {
+			console.log("-------------forLoop---------------")
+			for (const userObject of response) {
+				console.log(userObject)
+				result.data.push(userObject["twitch_name"])
+			}
+		}
+
+
+		result.status = (response.length > 0 ? "ok" : "error, something went wrong or nobody is live")
+		console.log(result)
+		return result
 	} else {
 		const result = await validate_tokens(params, true)
 		console.log(result)
