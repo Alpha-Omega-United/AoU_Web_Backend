@@ -64,9 +64,9 @@ async function validate_tokens(params, dbValidating = false) {
 				console.log("DB is NOT validating")
 				console.log("------------------------------------------------------------------")
 				const result = await MONGO_DB.queryAny({ query: "QUERYGETALL" })
-				return { "validation_status": { "success": userResponse }, "data": result }
+				return { "validation_status": { "success": true, "data": result } }
 			} else {
-				return { "validation_status": { "success": userResponse } }
+				return { "validation_status": { "success": true, "data": userResponse } }
 			}
 		} else {
 			//todo user is not mod, return queryOne
