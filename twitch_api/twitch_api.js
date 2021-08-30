@@ -104,7 +104,8 @@ async function queryDb(params) {
 		console.log("-----------PUBLIC-----------")
 		console.log(response)
 		console.log("----------------------------")
-		return { "status": "under dev" }
+		response.status = (response.length > 0 ? "ok" : "error, something went wrong or nobody is live")
+		return response
 	} else {
 		const result = await validate_tokens(params, true)
 		console.log(result)
