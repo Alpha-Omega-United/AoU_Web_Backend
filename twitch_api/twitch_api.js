@@ -100,7 +100,7 @@ async function confirmUserIsMod(userName) {
 async function queryDb(params) {
 	if (params.userName == "public" || params.userToken == "public") {
 		const queryRequest = { query: 'QUERYMANY', userData: { "stream": { "$ne": null } } }
-		response = await MONGO_DB.queryAny(queryRequest)
+		const response = await MONGO_DB.queryAny(queryRequest)
 		console.log("-----------PUBLIC-----------")
 		console.log(response)
 		console.log("----------------------------")
