@@ -49,7 +49,7 @@ async function queryAny(query) {
 		}
 		if (query.query == "QUERYMANY") {
 			console.log(query.userData)
-			response = await collection.find(query.userData);
+			response = await collection.find(query.userData).toArray();
 		}
 		if (query.query == "QUERYGETALL") {
 			response = await collection.find().toArray();

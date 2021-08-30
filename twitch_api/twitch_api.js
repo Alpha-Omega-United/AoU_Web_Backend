@@ -104,6 +104,7 @@ async function queryDb(params) {
 		console.log("-----------PUBLIC-----------")
 		console.log(response)
 		console.log("----------------------------")
+		return { "status": "under dev" }
 	} else {
 		const result = await validate_tokens(params, true)
 		console.log(result)
