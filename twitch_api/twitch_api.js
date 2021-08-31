@@ -94,6 +94,8 @@ async function confirmUserIsMod(userName) {
 		.catch((err) => console.log(err))
 	if (result && result.length > 0 && result[0].twitch_name == userName) {
 		return result[0]
+	} else {
+		return false
 	}
 }
 
