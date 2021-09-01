@@ -114,9 +114,8 @@ async function queryDb(params) {
 				result.data.push(userObject["twitch_name"])
 			}
 		}
-
-
-		result.status = (response.length > 0 ? "ok" : "error, something went wrong or nobody is live")
+		result.status = "ok"
+		result.response = (response.length > 0 ? `there are ${response.length} live now` : "error, something went wrong or nobody is live")
 		console.log(result)
 		return result
 	} else {
